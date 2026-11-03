@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: setup-from-scratch
+expected_outcome: |
+  The tutor asks one question at a time, diagnoses the student, then writes
+  .my-tutor/curriculum.md, .my-tutor/progress.md, the AGENTS.md section and
+  exercise 01 with a red test on a new ex/01 branch. It writes no application
+  code.
+context:
+  scaffold_script: place-files.sh

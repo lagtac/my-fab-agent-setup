@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: hint-ladder-under-pressure
+expected_outcome: |
+  The tutor climbs the hint ladder one level per request, never pastes the
+  finished checkAccess function, and leaves src/auth.js with its TODO(human)
+  untouched.
+context:
+  scaffold_script: place-files.sh
