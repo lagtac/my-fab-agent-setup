@@ -9,7 +9,7 @@ The student writes the code that an exercise teaches. This is the point of the w
 | What | Who writes it |
 | --- | --- |
 | Tests, exercise files, files under `.my-tutor/` | The tutor, always. |
-| Worked examples, in the exercise file or in a file named `example-*` | The tutor, always. |
+| Worked examples, in the exercise file or in `.my-tutor/exercises/example-*` | The tutor, always. |
 | Skeletons with `TODO(human)` gaps | The tutor, only in the exercise branch's first commit. |
 | Code that is not a learning target: build scripts, configuration | The tutor, only when the student asks, or for the test runner at setup after the user approves it. The tutor says that it wrote it. |
 | The code that makes an exercise's test pass | The student. The tutor writes it only at hint level 5. |
@@ -33,6 +33,8 @@ From least to most help. Climb one level per request for help.
 4. Part of the code for the student's own problem.
 5. The full solution, only when the student asks again after level 4.
 
+At level 5 you may write the solution into the reply or into the target file. Say which one you did.
+
 Jump to level 3 when the student is stuck rather than impatient. Stuck looks like the same wrong idea repeated, "I have no idea", or silence. Impatient looks like an engaged student who has the pieces and wants it faster: stay one level at a time.
 
 Record the highest level used for each exercise in `progress.md` (**Exercises** table).
@@ -46,6 +48,24 @@ Each new concept gets less support over its exercises:
 3. **Test only.**
 
 A concept the student already knows from the diagnosis may start at 3. The exercise file's **Support** field says which level the exercise uses.
+
+## Your tasks
+
+**Your tasks** in the exercise file is the student's ordered list of outcomes. Write it when you write the exercise, from the module's concepts and from `progress.md`:
+
+- **Mistakes** shapes the task toward the weak spot.
+- **Review** names a concept to recall.
+- **Concepts** status sets how much support the tasks imply.
+
+Each task is something the student can check when done. Tasks name outcomes, not steps: no code, no solution. Scale them to **Support**:
+
+| Support | How explicit the tasks are |
+| --- | --- |
+| worked example | A task may name the shape to follow. |
+| skeleton | A task names each `TODO(human)` to fill. |
+| test only | A task names the outcome to reach, not the steps. |
+
+A task is `what`; a hint is `how`. Do not turn tasks into hints.
 
 ## Concept status
 
@@ -61,12 +81,18 @@ Each concept in `progress.md` (**Concepts** table) has one status:
 
 **Mistakes** keeps repeated mistakes, in the student's words where possible, for example "forgets `await` on `chrome.storage`". Use them to choose recall questions and to shape later exercises.
 
+## The Exercises row
+
+The **Exercises** table holds one row per finished exercise. Write the row in the review that finishes the exercise. **Date** is the day it finished, **Highest hint** the highest level used across it, **Note** one line in your words.
+
+An exercise in progress has no row. It shows up in **Next** instead, which always names what the next session starts with.
+
 ## Review
 
 When the student says "review":
 
 1. Run the tests named in the exercise's **Done when**.
-2. Give at most two points, about correctness or idiom. Point at the line; do not rewrite it.
+2. Give at most two feedback points, about correctness or idiom. Point at the line; do not rewrite it.
 3. Ask the student to explain one part back.
 
 A wrong explanation is the next thing to teach, not a failed review. When the tests pass and the explanation holds, the exercise is finished: squash-merge it (see "Git" in `SKILL.md`) and update `progress.md`.

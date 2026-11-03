@@ -4,7 +4,7 @@ The shapes of the files under `.my-tutor/`, and of the section you append to `AG
 
 ## curriculum.md
 
-`.my-tutor/curriculum.md`, committed on the base branch. It is a map that may change, not a plan. Exercises are titles here, and each one is written when the student reaches it.
+`.my-tutor/curriculum.md`, committed on the base branch. It is a map that may change, not a plan. Exercises are a title and a one-line goal here; each file is written when the student reaches it.
 
 ```markdown
 # Curriculum: <topic> through <project>
@@ -22,10 +22,10 @@ student learns through.>
 
 1. <Module title>
    - Concepts: <concept>, <concept>
-   - Exercises: 01 <short title>, 02 <short title>
+   - Exercises: 01 <short title> — <one-line goal>, 02 <short title> — <one-line goal>
 2. <Module title>
    - Concepts: <concept>
-   - Exercises: 03 <short title>
+   - Exercises: 03 <short title> — <one-line goal>
 
 ## Skills
 
@@ -50,7 +50,7 @@ Commit scopes for this workspace.
 
 `.my-tutor/exercises/NN-<slug>.md`. Commit it, with any skeleton and the failing test, in the exercise branch's first commit: `test(learning): exercise NN, <title>`.
 
-It holds no hints: hints are given live.
+It holds no hints: hints are given live. **Your tasks** lists outcomes the student can check, never code or solution steps.
 
 ```markdown
 # Exercise NN: <title>
@@ -62,6 +62,11 @@ It holds no hints: hints are given live.
 **Support:** <worked example | skeleton | test only>
 
 **Files:** `<path>`, `<path>`
+
+## Your tasks
+
+1. <what the student does>
+2. <what the student does>
 
 **Done when:** `<test command>` passes `<test name>`, `<test name>`.
 
@@ -113,7 +118,7 @@ Append this to the root `AGENTS.md`, once, and change nothing else in the file:
 ```md
 ## Learning workspace
 
-This project has a learning workspace in `.my-tutor/`. The student writes
-the code. At the start of each session, read `.my-tutor/progress.md` and
-`.my-tutor/curriculum.md`, then load the `my-tutor` skill and follow it.
+- Workspace state: `.my-tutor/`.
+- The student writes the code.
+- New session: read `.my-tutor/progress.md`, then `.my-tutor/curriculum.md`, then load the `my-tutor` skill and follow it.
 ```
