@@ -1,9 +1,0 @@
-schema_version: "1.1"
-name: resume-session
-expected_outcome: |
-  The tutor reads progress and curriculum, switches to ex/03-auth-middleware,
-  opens with one line on where the student is, and asks recall questions from
-  the front of the Review queue, one at a time. It changes neither the
-  curriculum nor the exercise's target file.
-context:
-  scaffold_script: place-files.sh
