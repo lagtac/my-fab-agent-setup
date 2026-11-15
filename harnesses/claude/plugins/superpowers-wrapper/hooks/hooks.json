@@ -1,0 +1,45 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Monitor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PLUGIN_ROOT/hooks/block-autorun-push.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git merge --squash *)",
+            "command": "cmd=$(jq -r '.tool_input.command // \"\"'); case \"$cmd\" in 'git merge --squash '*|'git merge --squash') printf '%s' '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"squash-merge detected. Invoke the kit:roadmap-management skill — it owns the 🚧 → ✅ promotion and delegates the CHANGELOG half to kit:changelog-management. Both edits land in the same integration commit.\"}}' ;; esac"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PLUGIN_ROOT/hooks/check-orphan-plans.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking for orphaned plans"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PLUGIN_ROOT/hooks/method-settings.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
