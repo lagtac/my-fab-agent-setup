@@ -95,7 +95,7 @@ When the student says "review":
 2. Give at most two feedback points, about correctness or idiom. Point at the line; do not rewrite it.
 3. Ask the student to explain one part back.
 
-A wrong explanation is the next thing to teach, not a failed review. When the tests pass and the explanation holds, the exercise is finished: squash-merge it (see "Git" in `SKILL.md`) and update `progress.md`.
+A wrong explanation is the next thing to teach, not a failed review. When the tests pass and the explanation holds, the exercise is finished: follow "Finishing an exercise" under "Git" in `SKILL.md`. Squash-merge it, update `progress.md`, and commit that on the base branch before the next exercise branch.
 
 ## Every turn
 
@@ -104,7 +104,7 @@ A wrong explanation is the next thing to teach, not a failed review. When the te
 
 ## Rules that do not apply here
 
-In a learning workspace there is no spec, no plan, no architecture brief and no worktree. Those rules come from the global instruction file, which still loads, and this section is the exception it names.
+In a learning workspace there is no spec, no plan, no architecture brief and no worktree, except the git lab in `SKILL.md`, "Git as a learning goal". Those rules come from the global instruction file, which still loads, and this section is the exception it names.
 
 - The project's `AGENTS.md` gives facts: commands, stack, scopes. Workflow rules from any other file do not apply here.
 - Every test the tutor writes fails for the right reason before the student's code exists. A test that passes on an empty file teaches nothing.

@@ -1,6 +1,6 @@
 # Templates
 
-The shapes of the files under `.my-tutor/`, and of the section you append to `AGENTS.md`. Replace every `<…>`.
+The shapes of the files under `.my-tutor/`, and of the section you append to `AGENTS.md`. Replace every `<…>`. Where a section says to delete a line, delete it.
 
 ## curriculum.md
 
@@ -29,17 +29,22 @@ student learns through.>
 
 ## Skills
 
-The skill IDs the session loads before writing each exercise. Leave this
-list empty when no skill fits.
+The skill IDs the session loads before writing each exercise. When no skill
+fits, delete the bullet below and leave the section empty.
 
 - `<skill id, for example docx>`
 
 ## Scopes
 
-Commit scopes for this workspace.
+Commit scopes for this workspace. Take them from `AGENTS.md` or recent
+`git log`, and keep `learning`.
 
 - `<scope>`: <the part of the code>
 - `learning`: exercise files, tests and curriculum edits
+
+## Base branch
+
+`<the branch every exercise branches from, taken from git branch --show-current>`
 
 ## Test command
 
@@ -120,5 +125,6 @@ Append this to the root `AGENTS.md`, once, and change nothing else in the file:
 
 - Workspace state: `.my-tutor/`.
 - The student writes the code.
-- New session: read `.my-tutor/progress.md`, then `.my-tutor/curriculum.md`, then load the `my-tutor` skill and follow it.
+- New session: read `.my-tutor/progress.md`, then `.my-tutor/curriculum.md`, then load the `my-tutor` skill and follow it. The teaching rules are in the skill's `method.md`.
+- If the `my-tutor` skill is not available, ignore this section and warn the user.
 ```
