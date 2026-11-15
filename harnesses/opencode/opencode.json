@@ -1,0 +1,321 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "default_agent": "build",
+  "mcp": {
+    "timeout": {
+      "startup": 60000
+    },
+    "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer {file:~/.config/secrets/context7.key}"
+        }
+      },
+      "playwright": {
+        "type": "local",
+        "cwd": "/tmp/opencode",
+        "command": [
+          "npx",
+          "-y",
+          "@playwright/mcp@0.0.83",
+          "--headless",
+          "--isolated",
+          "--browser",
+          "chromium",
+          "--viewport-size",
+          "1440x900",
+          "--output-dir",
+          "/tmp/opencode"
+        ]
+      }
+    }
+  },
+  "skills": [],
+  "references": {},
+  "instructions": [
+    "~/.config/opencode/rules/*.md"
+  ],
+  "compaction": {
+    "auto": true
+  },
+  "watcher": {
+    "ignore": []
+  },
+  "warming": true,
+  "snapshots": true,
+  "permissions": [
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "gh pr create *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "gh pr merge *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "gh release *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "gh workflow run *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "docker volume rm*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "docker compose down -v*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -r *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf *",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "sudo *",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "git push --force*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "git push -f*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean -fdx*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf /*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf ~*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf $HOME*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "mkfs*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "dd *",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "shutdown*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "reboot*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "chmod 777 *",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf /tmp/opencode/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "~/.ssh/*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*.pem",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*.key",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*id_rsa*",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "*.env",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "*.env.*",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "*.pem",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "*.key",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "*.env.example",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*.env.dist",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.agents/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.opencode/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.claude/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/src/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/projects/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "/tmp/*",
+      "effect": "allow"
+    },
+    {
+      // skill permissions apply only to tool calls,
+      // e.g. when a model invokes the skill
+      // the user mentioning the skill is a user path
+      // and permissions do not apply
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+  ],
+  "agents": {
+    "build": {
+      "model": "opencode-go/deepseek-v4.1-flash#high"
+    },
+    "plan": {
+      "model": "opencode-go/deepseek-v4-pro#high",
+      "permissions": [
+        {
+          "action": "external_directory",
+          "resource": "~/",
+          "effect": "allow"
+        }
+      ]
+    },
+    "explore": {
+      "model": "opencode-go/deepseek-v4.1-flash#medium",
+      "permissions": [
+        {
+          "action": "external_directory",
+          "resource": "~/",
+          "effect": "allow"
+        }
+      ]
+    }
+  },
+  "formatter": true,
+  "media": {
+    "image": {
+      "auto_resize": true,
+      "max_width": 2000,
+      "max_height": 2000,
+      "max_base64_bytes": 524880
+    }
+  },
+  "websearch": {
+    "provider": "random"
+  },
+  "worktree": {
+    "directory": ".worktrees"
+  },
+}

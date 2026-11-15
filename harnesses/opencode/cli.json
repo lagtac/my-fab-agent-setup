@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "animations": true,
+  "session": {
+    "thinking": "hide",
+    "markdown": "rendered",
+    "verbosity": "medium",
+    "image_preview": true,
+    "tps": true,
+    "permissions": "prompt"
+  },
+  "tabs": {
+    "scope": "cwd",
+    "enabled": true,
+    "indicators": "status",
+    "layout": "horizontal",
+    "mode": "auto"
+  },
+  "terminal": {
+    "copy": "select"
+  }
+}
