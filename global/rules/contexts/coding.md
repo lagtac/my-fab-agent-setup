@@ -1,16 +1,18 @@
 # Coding
 
-The following are specialized and extended expressions of `../principles.md` and apply when writing or editing code.
+The following apply when writing or editing code.
+
+attribution: these rules are adapted from `https://kirill-markin.com/articles/claude-code-rules-for-ai/`
 
 ## Code Style
 
+- Prefer the style choices below, unless the codebase has an established set of conventions and code style. In that case, follow the codebase.
 - Prefer functional programming over OOP
 - Use OOP classes only for connectors and interfaces to external systems
 - Write pure functions - only modify return values, never input parameters or global state
 - Follow DRY, KISS, and YAGNI principles
 - Prefer simple, native, vendor-recommended solutions and avoid premature abstractions
 - Use strict typing for returns, variables, collections, and complex data; validate external/API data at runtime; require needed fields, ignore unrelated extra fields, prefer structured models over loose dictionaries, and avoid weak generic types like `Any`, `unknown`, or `List[Dict[str, Any]]`
-- Check if logic already exists before writing new code
 - Never use default parameter values - make all parameters explicit
 - Write simple single-purpose functions - no multi-mode behavior, no flag parameters that switch logic. If the user needs multiple modes, they will ask explicitly
 
@@ -33,9 +35,10 @@ The following are specialized and extended expressions of `../principles.md` and
 
 ## Testing
 
-- Respect the repository test strategy and add only the minimum useful tests for the requested change
-- Prefer smoke, integration, and end-to-end tests over narrow unit or regression tests; do not test static text, prompts, or config unless behavior depends on them
-- Do not create fake/mock-based tests by default; use real integrations when practical, even if they cost a little money
+Respect the repository test strategy and add only the minimum useful tests for the requested change
+
+- Prefer smoke, integration, and end-to-end tests over narrow unit or implementation-coupled regression tests; do not test static text, prompts, or config unless behavior depends on them
+- Mock only at system boundaries (external APIs, time, randomness); use real integrations for your own code
 - UI tests and automations must use stable IDs, test IDs, or accessibility IDs instead of visible text, and fail fast without fallback clicks
 
 ## Terminal Usage
@@ -46,7 +49,7 @@ The following are specialized and extended expressions of `../principles.md` and
 ## Workflow
 
 - Read the existing code and relevant project instructions before editing
-- Keep changes minimal and tightly scoped to the current request: make the smallest useful diff, change only the lines needed to solve the problem, and avoid unrelated improvements unless the user asks for them
+- Make the smallest useful diff: change only the lines needed to solve the problem, and avoid unrelated improvements unless the user asks for them
 - Match the existing style of the repository even if it differs from my personal preference; new code must look like it was written by the same author
 - Keep files small and cohesive; split by feature or responsibility when the project has no established structure
 - Do not revert unrelated changes
@@ -55,10 +58,7 @@ The following are specialized and extended expressions of `../principles.md` and
 
 ## Documentation
 
-- Project documentation goes to `$PROJECT/docs` unless otherwise specified.
-- Files that are usually uppercase, like README.md etc, signal "meta documents about the project" and are are root-level.
+- Files that are usually uppercase, like README.md etc, signal "meta documents about the project" and are root-level.
 - Code is the primary documentation - use clear naming, types, and docstrings
 - Keep documentation in docstrings of the functions, classes, or modules they describe, not in separate files
 - Separate docs files only when a concept cannot be expressed clearly in code, and only one file per topic
-- Never duplicate documentation across files; reference other sources instead
-- Store knowledge as current state, not as a changelog of modifications

@@ -21,9 +21,8 @@ The rules live in `rules/` next to this file. Each harness loads them through it
 
 These load in every project.
 
-- `rules/principles.md`: universal principles.
 - `rules/critical-thinking.md`: checking claims, scoping requests, handling faults.
-- `rules/communication.md`: the 17 writing rules and the review pass.
+- `rules/communication.md`: the writing rules, the review pass, and file/documentation rules.
 - `rules/skills.md`: skill roots and the audit script.
 - `rules/plan.md`: where plans go.
 - `rules/git.md`: commits, branches, merge.
@@ -33,5 +32,6 @@ These load in every project.
 These apply to one kind of project. They live in `rules/contexts/` and do not load on their own. A project opts in per harness; see `docs/rule-contexts.md` for the snippet to add.
 
 - `rules/contexts/coding.md`: code style, errors, dependencies, tests, terminal use, workflow, docs.
+- `rules/contexts/coding-light.md`: the same topics, relaxed, for small scripts and repo tooling.
 - `rules/contexts/research.md`: investigating, comparing, citing.
 - `rules/contexts/writing.md`: drafting and editing prose.

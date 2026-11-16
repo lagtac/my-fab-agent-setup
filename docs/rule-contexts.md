@@ -5,8 +5,11 @@ Context rules apply to one kind of project. They live in `global/rules/contexts/
 Pick the file that matches the project. `global/AGENTS.md` describes what each one covers.
 
 - `global/rules/contexts/coding.md`
+- `global/rules/contexts/coding-light.md`
 - `global/rules/contexts/research.md`
 - `global/rules/contexts/writing.md`
+
+Use `coding.md` for applications and services, `coding-light.md` for small scripts and repo tooling.
 
 ## OpenCode
 

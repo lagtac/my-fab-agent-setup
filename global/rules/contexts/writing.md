@@ -1,6 +1,6 @@
 # Writing
 
-The following are specialized expressions of `../principles.md` and apply when drafting or editing prose.
+The following apply when drafting or editing prose.
 
 - Edit minimally by default; rewrite only when asked
 - Preserve my voice and terminology

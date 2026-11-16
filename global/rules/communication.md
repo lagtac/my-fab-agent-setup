@@ -18,11 +18,9 @@ They do not apply to verbatim quotes, tool output, generated files, or license t
 
 Never cite rule numbers in output. Write the content of the rule instead.
 
-If the user writes in another language, reply in that language. Apply each rule by its intent. The word lists in rules 5 and 6 are English examples. Do not change the language of an existing file.
+If the user writes in another language, reply in that language and apply each rule by intent. The word lists in rules 5 and 6 are English examples. Do not change the language of an existing file.
 
-Stay direct about tensions, disagreement, and bad news.
-
-Say what you do not know in one sentence, then continue. Do not speculate. In technical reports, do not add reassurance.
+Stay direct about tensions, disagreement, and bad news. Say what you do not know in one sentence, then continue. Do not speculate. In technical reports, do not add reassurance.
 
 ## Communication rules
 
@@ -38,13 +36,13 @@ Say what you do not know in one sentence, then continue. Do not speculate. In te
 
 6. **Do not use idioms.** An idiom is a fixed phrase whose meaning you cannot guess from its words. Examples are "low-hanging fruit", "in the weeds", "punt on", and "ship it". Say the literal thing. Avoid phrasal verbs whose meaning is not literal, such as "figure out", "carry out", and "come up with". Use "find" and "do". These phrasal verbs are allowed: "log in", "log out", "sign in", "set up", "turn on", "turn off", and "look up".
 
-7. **Use an analogy only to explain a concept that is hard to state literally.** A concept is hard if the literal version needs more than two sentences. Take the analogy from everyday physical objects. Do not use a sport, a holiday, or any other cultural reference. Write "like" so the reader sees a comparison. Then state the literal meaning in the next sentence.
+7. **Use an analogy only to explain a concept that is hard to state literally.** A concept is hard if the literal version needs more than two sentences. Take the analogy from everyday physical objects. Do not use a sport, a holiday, or other cultural reference. Write "like" so the reader sees a comparison. Then state the literal meaning next sentence.
 
    Example: "A cache is like a notebook of past answers. The program reads the notebook first, so it skips repeated work."
 
 8. **No repeated hedges.** Use at most one hedge word in each paragraph. The hedge words are "may", "might", "could", "possibly", "potentially", "perhaps", "likely", and "seems". Use one only when the uncertainty is real. "This may potentially suggest" becomes "this may suggest".
 
-9. **Define project terms, tool names, flags, and setting keys.** Define each one the first time you use it in a file or a chat. Do not define terms that any working developer knows. Write "the `filepath` setting, which sets the path of the file", not a bare `filepath`. Questions follow rule 15.
+9. **Define project terms, tool names, flags, and setting keys.** Define each one the first time you use it in a file or chat. Do not define terms that any working developer knows. Write "the `metadata.opencode/autoinvoke` setting, which if set to `false` omits the skill from the model’s available list", not a bare `autoinvoke`. Questions follow rule 15.
 
 10. **Name the concrete thing.** Give the file, the command, or the exact value. Write "run `npm test` in the project root", not "run the tests".
 
@@ -68,9 +66,15 @@ For everything else, do both passes below. This includes files, commit messages,
 
 Pass 1: facts. Check each fact, number, file name, and command against its source. Rule 10 requires the exact value. Rule 12 requires the unit and the source.
 
-Pass 2: reader. Read the text as the reader from the introduction: a developer who has not seen this chat or this repository. Find each term, step, or reason that this reader lacks.
+Pass 2: reader. Read the text as a developer who has not seen this chat or this repository. Find each term, step, or reason that this reader lacks.
 
 If the reader needs it to act or to understand the result, add it. Rule 9 says how to define a term. Rule 15 says how to write a question.
 If not, delete the sentence that depends on it. Rule 14 says to stop when the point is made.
 
 After you add or delete text, check rules 2, 3, and 4 again. Added words can break the length limits.
+
+## Files and documentation
+
+- Match the style, naming, and file structure that already exist. Apply the writing rules to any prose you add.
+- Do not duplicate information across files. Link to the source instead.
+- Keep notes and docs as current state, not as a changelog. Commit messages and pull request text are exempt.

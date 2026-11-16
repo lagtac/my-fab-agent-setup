@@ -6,7 +6,6 @@ Claude Code reads `CLAUDE.md`. This adapter loads the shared rules from `global/
 
 ## Rule contents
 
-@~/projects/my-agent-skills/global/rules/principles.md
 @~/projects/my-agent-skills/global/rules/critical-thinking.md
 @~/projects/my-agent-skills/global/rules/communication.md
 @~/projects/my-agent-skills/global/rules/skills.md
