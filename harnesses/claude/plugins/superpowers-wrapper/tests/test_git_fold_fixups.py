@@ -1,6 +1,6 @@
 """Tests for bin/git-fold-fixups.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test builds a throwaway repository in a temporary directory and runs the
 script there as a subprocess. Git runs without the user's or the system's

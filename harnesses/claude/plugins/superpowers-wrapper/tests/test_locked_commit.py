@@ -1,6 +1,6 @@
 """Tests for bin/locked-commit.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test builds a throwaway repository in a temporary directory and runs the
 real script in it. The message file sits in the temporary directory, outside

@@ -269,7 +269,7 @@ before it starts. Names are compared exactly.
 ### Start an auto run
 
 1. **Write the spec** in your own session, with `superpowers:brainstorming`.
-   The spec rules in the `my` style (`plugins/my/output-styles/my.md`) make it ask whether the spec may run
+   The spec rules in the `my` style (`output-styles/my.md`) make it ask whether the spec may run
    in auto mode. On yes, it adds the Delegation section. You can also add
    the section by hand.
 2. **Review the spec** with `my:spec-review <spec>`, and fix what it finds.
@@ -300,7 +300,7 @@ before it starts. Names are compared exactly.
 
 Each window of a run starts with the environment variable `MY_AUTORUN` set
 to the slug. While it is set, a hook of this plugin
-(`plugins/my/hooks/block-autorun-push.py`) blocks every `git push` that the
+(`hooks/block-autorun-push.py`) blocks every `git push` that the
 session runs through the `Bash` or `Monitor` tool. Your own sessions do not
 have the variable, so your pushes and `/kit:push` work as before.
 
@@ -314,12 +314,12 @@ After a run, `git log origin/main` shows whether anything was pushed.
 A run keeps its state in `.git/my-handoff/<slug>.json`, in the main checkout's
 git folder. A supervised run keeps one too, from its code stage on. The field
 `mode` says `auto` or `supervised`. That folder is outside the work tree, so
-`git status` never shows it. `handoff-state.py`, in `plugins/my/bin/`, writes
+`git status` never shows it. `handoff-state.py`, in `bin/`, writes
 and reads it: `handoff-state.py get <slug>` prints it. The field `next` names
 the next step, and `stopped` holds the reason of the last stop. The script is
 on `PATH` only inside a Claude session that loads this plugin. For your own
 shell, add a symlink in `~/bin`, as for `git-fold-fixups.py`:
-`ln -s <this repo>/plugins/my/bin/handoff-state.py ~/bin/`.
+`ln -s <plugin root>/bin/handoff-state.py ~/bin/`.
 
 ### When a run stops
 

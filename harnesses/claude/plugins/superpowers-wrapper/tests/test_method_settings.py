@@ -1,6 +1,6 @@
 """Tests for hooks/method-settings.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test builds a temporary folder, most often a new git repo, and runs the
 script as a subprocess, the way Claude Code runs a SessionStart hook. The

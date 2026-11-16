@@ -1,6 +1,6 @@
 """Integration test: the queue of `/my:handoff auto rows`, end to end.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 The test plays the parts that my:handoff plays, but calls only the real
 scripts (handoff-lock.py, handoff-state.py) and git, with bin/ first on PATH.

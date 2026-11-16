@@ -1,6 +1,6 @@
 """Integration test: two simulated auto runs in one repository.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 The test plays the parts that the my:handoff stages play, but calls only the
 real scripts (handoff-lock.py, handoff-state.py, git-fold-fixups.py) and git,

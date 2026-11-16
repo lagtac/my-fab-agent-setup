@@ -1,6 +1,6 @@
 """Tests for bin/handoff-lock.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test builds a throwaway repository in a temporary directory, with the
 branch `feat/widget` checked out in a worktree next to it. A holder takes a

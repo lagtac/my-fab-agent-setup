@@ -488,7 +488,7 @@ check of "Start checks in auto mode".
    other slugs. Print the result and stop. At the next `pull`, the rows gated
    behind a dropped row are skipped.
 3. **Judge each row.** Run `status-scan.py` once. Use `my:status` steps 4 to
-   6 (`plugins/my/skills/status/SKILL.md`) to find each row's spec, its gates
+   6 (`skills/status/SKILL.md`) to find each row's spec, its gates
    and its file list. Check the cases below in this order. At the first case
    that holds, the row is skipped: print `row <n>: <reason>`, with the reason
    word for word, and do not queue it.

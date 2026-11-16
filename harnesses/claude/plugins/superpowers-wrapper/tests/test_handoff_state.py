@@ -1,6 +1,6 @@
 """Tests for bin/handoff-state.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test builds a throwaway repository in a temporary directory: `main` holds
 a spec and a plan, and the branch `feat/widget` is checked out in a worktree

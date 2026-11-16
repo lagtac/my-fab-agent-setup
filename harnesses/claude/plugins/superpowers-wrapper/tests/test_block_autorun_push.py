@@ -1,6 +1,6 @@
 """Tests for hooks/block-autorun-push.py.
 
-Run from plugins/my: python3 -m unittest discover tests
+Run from the plugin root: python3 -m unittest discover tests
 
 Each test runs the script as a subprocess and feeds it the hook's JSON on
 stdin, the way Claude Code calls a PreToolUse hook. MY_AUTORUN is set or
