@@ -34,11 +34,10 @@ name in the status bar. Cut the title, never the row number.
 
 ## 2. Name the pane
 
-Run the script, which is on PATH in Claude Code sessions. Put the label in
-single quotes, and drop any `'` from it:
+Run the script. Put the label in single quotes, and drop any `'` from it:
 
 ```bash
-/home/dchris/.config/opencode/skills/my/bin/tmux-name-pane.py '<label>'
+/home/dchris/.config/opencode/skills/bin/tmux-name-pane.py '<label>'
 ```
 
 It sets the label on the pane this session runs in (`$TMUX_PANE`), never on
