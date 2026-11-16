@@ -1,0 +1,26 @@
+{
+  "harness": "opencode",
+  "binary": "opencode",
+  "root": [
+    "$OPENCODE_CONFIG_DIR",
+    "$XDG_CONFIG_HOME/opencode",
+    "~/.config/opencode"
+  ],
+  "links": [
+    {"source": "global/AGENTS.md", "target": "AGENTS.md", "kind": "file"},
+    {"source": "global/rules", "target": "rules", "kind": "dir"},
+    {"source": "global/skills", "target": "skills", "kind": "dir"},
+    {"source": "global/agents", "target": "agents", "kind": "dir"},
+    {"source": "global/commands", "target": "commands", "kind": "dir"},
+    {
+      "source": "harnesses/opencode/opencode.json",
+      "target": "opencode.json",
+      "kind": "file"
+    },
+    {
+      "source": "harnesses/opencode/cli.json",
+      "target": "cli.json",
+      "kind": "file"
+    }
+  ]
+}

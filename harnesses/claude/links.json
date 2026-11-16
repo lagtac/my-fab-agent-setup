@@ -1,0 +1,21 @@
+{
+  "harness": "claude",
+  "binary": "claude",
+  "root": ["~/.claude"],
+  "links": [
+    {
+      "source": "harnesses/claude/CLAUDE.md",
+      "target": "CLAUDE.md",
+      "kind": "file"
+    },
+    {"source": "global/rules", "target": "rules", "kind": "dir"},
+    {"source": "global/commands", "target": "commands", "kind": "dir"},
+    {
+      "source": "global/skills",
+      "target": "skills",
+      "kind": "children",
+      "exclude": ["bin"]
+    },
+    {"source": "global/agents", "target": "agents", "kind": "children"}
+  ]
+}
