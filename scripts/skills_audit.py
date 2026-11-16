@@ -25,7 +25,7 @@ DEFAULT_ROOTS = [
     Path("~/.agents/skills"),
 ]
 
-DEFAULT_OUT = Path(__file__).resolve().parent.parent / "skills-audit.md"
+DEFAULT_OUT = Path(__file__).resolve().parent.parent / "docs" / "skills-audit.md"
 
 FRONTMATTER = re.compile(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.DOTALL)
 BYTES_PER_TOKEN = 4
