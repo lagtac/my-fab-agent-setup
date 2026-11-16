@@ -1,6 +1,5 @@
 ---
 description: Structured commit workflow with conventional commits
-model: opencode-go/deepseek-v4.1-flash#low
 ---
 
 # Commit
