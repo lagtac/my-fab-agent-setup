@@ -10,14 +10,16 @@
 
 ## Introspection
 
-Your review of your own draft tends to be weaker than a fresh read. Read the draft as if a rival wrote it, and hunt for contradictions on the page.
+Your review of your own draft tends to be weaker than a fresh read. Read the draft as if a rival wrote it.
 
-Conflicts take three shapes:
+Ask three questions of every claim and its support:
 
-- A claim made, then retracted.
-- Two statements that cannot both be true.
-- A loop of revision that ends undecided.
+- Does a later sentence take back an earlier one?
+- Do two sentences contradict each other?
+- Does a claim assert support that is missing?
 
-For each conflict, quote both sides. Then resolve it or mark it open. Do not treat "hmm", "but wait", or "actually" as evidence of a conflict. These marks are often rhetorical, so judge the meaning, not the phrase.
+For each conflict, quote both sides. Then resolve it or mark it open, naming the person you will ask. Do not treat "hmm", "but wait", or "actually" as evidence of a conflict. These marks are often rhetorical, so judge the meaning, not the phrase.
 
-When the text is long or high-stakes, prefer a fresh read over a self-review.
+A review must return one specific finding. Name the sentence you would change, or confirm that you checked each claim against its source. "No conflicts found" alone is not a review.
+
+This section tests consistency only. A draft can be consistent and still wrong, so run the fact check in the second bullet above. When the text is long or high-stakes, get a fresh read: hand it to a second agent, or leave it and read it again later.
