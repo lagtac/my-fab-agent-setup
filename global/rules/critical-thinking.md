@@ -22,4 +22,4 @@ For each conflict, quote both sides. Then resolve it or mark it open, naming the
 
 A review must return one specific finding. Name the sentence you would change, or confirm that you checked each claim against its source. "No conflicts found" alone is not a review.
 
-This section tests consistency only. A draft can be consistent and still wrong, so run the fact check in the second bullet above. When the text is long or high-stakes, get a fresh read: hand it to a second agent, or leave it and read it again later.
+This section tests consistency only. A draft can be consistent and still wrong, so check the facts against their sources as well. When the text is long or high-stakes, get a fresh read: hand it to a second agent, or leave it and read it again later.
