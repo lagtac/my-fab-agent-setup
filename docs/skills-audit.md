@@ -13,22 +13,22 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 2 | skill-creator | ~/.claude/skills | 9,080 | 83 |  |
 | 3 | pptx | ~/.claude/skills | 7,218 | 242 |  |
 | 4 | my-tune-claude-instructions | ~/.config/opencode/skills | 6,121 | 141 | `~/.claude/skills/my-tune-claude-instructions/SKILL.md` |
-| 5 | my-roadmap-management | ~/.config/opencode/skills | 5,550 | 122 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
-| 6 | morning | ~/.claude/skills | 4,540 | 87 |  |
-| 7 | my-de-slop | ~/.config/opencode/skills | 4,372 | 100 | `~/.claude/skills/my-de-slop/SKILL.md` |
-| 8 | asd-ste100 | ~/.agents/skills | 4,143 | 120 |  |
-| 9 | doc-coauthoring | ~/.claude/skills | 3,953 | 111 |  |
-| 10 | google-workspace | ~/.claude/skills | 3,840 | 241 |  |
-| 11 | learn | ~/.claude/skills | 3,362 | 247 |  |
-| 12 | deep-research | ~/.claude/skills | 3,283 | 146 |  |
-| 13 | my-deep-research | ~/.config/opencode/skills | 3,242 | 146 | `~/.claude/skills/my-deep-research/SKILL.md` |
-| 14 | ask-matt | ~/.agents/skills | 3,148 | 23 |  |
-| 15 | wayfinder | ~/.agents/skills | 3,102 | 52 |  |
-| 16 | impeccable | ~/.agents/skills | 2,940 | 150 |  |
-| 17 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
-| 18 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
-| 19 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
-| 20 | my-changelog-management | ~/.config/opencode/skills | 2,603 | 118 | `~/.claude/skills/my-changelog-management/SKILL.md` |
+| 5 | morning | ~/.claude/skills | 4,540 | 87 |  |
+| 6 | my-de-slop | ~/.config/opencode/skills | 4,372 | 100 | `~/.claude/skills/my-de-slop/SKILL.md` |
+| 7 | asd-ste100 | ~/.agents/skills | 4,143 | 120 |  |
+| 8 | doc-coauthoring | ~/.claude/skills | 3,953 | 111 |  |
+| 9 | google-workspace | ~/.claude/skills | 3,840 | 241 |  |
+| 10 | learn | ~/.claude/skills | 3,362 | 247 |  |
+| 11 | deep-research | ~/.claude/skills | 3,283 | 146 |  |
+| 12 | my-deep-research | ~/.config/opencode/skills | 3,242 | 146 | `~/.claude/skills/my-deep-research/SKILL.md` |
+| 13 | ask-matt | ~/.agents/skills | 3,148 | 23 |  |
+| 14 | wayfinder | ~/.agents/skills | 3,102 | 52 |  |
+| 15 | impeccable | ~/.agents/skills | 2,940 | 150 |  |
+| 16 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
+| 17 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
+| 18 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
+| 19 | my-roadmap-management | ~/.config/opencode/skills | 2,629 | 113 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
+| 20 | my-changelog-management | ~/.config/opencode/skills | 2,454 | 119 | `~/.claude/skills/my-changelog-management/SKILL.md` |
 | 21 | teach | ~/.agents/skills | 2,433 | 17 |  |
 | 22 | computer-use | ~/.claude/skills | 2,317 | 237 |  |
 | 23 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
@@ -52,10 +52,10 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 41 | de-slop | ~/.claude/skills | 1,348 | 138 |  |
 | 42 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
 | 43 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
-| 44 | retro | ~/.agents/skills | 1,092 | 13 |  |
-| 45 | pr | ~/.agents/skills | 1,042 | 8 |  |
-| 46 | wizard | ~/.agents/skills | 1,030 | 80 |  |
-| 47 | my-status | ~/.config/opencode/skills | 1,011 | 94 | `~/.claude/skills/my-status/SKILL.md` |
+| 44 | my-status | ~/.config/opencode/skills | 1,127 | 98 | `~/.claude/skills/my-status/SKILL.md` |
+| 45 | retro | ~/.agents/skills | 1,092 | 13 |  |
+| 46 | pr | ~/.agents/skills | 1,042 | 8 |  |
+| 47 | wizard | ~/.agents/skills | 1,030 | 80 |  |
 | 48 | tdd | ~/.agents/skills | 907 | 38 |  |
 | 49 | scaffold-exercises | ~/.agents/skills | 897 | 56 |  |
 | 50 | writing-fragments | ~/.agents/skills | 889 | 18 |  |
@@ -82,7 +82,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
 | 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 72 · **Total load:** 145,521 tok · **Catalogue (always on):** 6,217 tok
+**Skills:** 72 · **Total load:** 142,567 tok · **Catalogue (always on):** 6,213 tok
 
 ## Trigger collisions
 
