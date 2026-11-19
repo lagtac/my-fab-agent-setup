@@ -67,10 +67,10 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 56 | to-questionnaire | ~/.agents/skills | 726 | 26 |  |
 | 57 | implement-spec | ~/.agents/skills | 708 | 18 |  |
 | 58 | migrate-to-shoehorn | ~/.agents/skills | 698 | 47 |  |
-| 59 | context7-mcp | ~/.agents/skills | 681 | 70 |  |
-| 60 | grilling | ~/.agents/skills | 638 | 40 |  |
-| 61 | loop-me | ~/.agents/skills | 630 | 22 |  |
-| 62 | my-worklog | ~/.config/opencode/skills | 595 | 52 | `~/.claude/skills/my-worklog/SKILL.md` |
+| 59 | my-worklog | ~/.config/opencode/skills | 692 | 52 | `~/.claude/skills/my-worklog/SKILL.md` |
+| 60 | context7-mcp | ~/.agents/skills | 681 | 70 |  |
+| 61 | grilling | ~/.agents/skills | 638 | 40 |  |
+| 62 | loop-me | ~/.agents/skills | 630 | 22 |  |
 | 63 | git-guardrails-claude-code | ~/.agents/skills | 578 | 68 |  |
 | 64 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
 | 65 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
@@ -82,7 +82,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
 | 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 72 · **Total load:** 141,600 tok · **Catalogue (always on):** 6,088 tok
+**Skills:** 72 · **Total load:** 141,697 tok · **Catalogue (always on):** 6,088 tok
 
 ## Trigger collisions
 
