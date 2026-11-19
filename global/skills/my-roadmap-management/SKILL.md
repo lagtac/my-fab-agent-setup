@@ -12,25 +12,30 @@ description: >
 
 # Roadmap Management
 
-A roadmap is **forward-looking** — what's next, in flight, or shipped recently. A CHANGELOG is **backward-looking** — what reached `main` and changed contract or behaviour. They couple at one moment: the integration (squash-merge by default) that promotes a row from 🚧 to ✅. At that moment both files update in the same commit (rule 6).
+A roadmap is **forward-looking** — what's next, in flight, or shipped recently. It is an index of the feature lifecycle: rows grouped by area, each one a tier, a spec or plan link, and a short body. It does not answer where the project is now, what happened on a given day, or what is queued. The status file, the worklog, and the tracker own those.
+
+A CHANGELOG is **backward-looking** — what reached `main` and changed contract or behaviour. They couple at one moment: the integration (squash-merge by default) that promotes a row from 🚧 to ✅. At that moment both files update in the same commit (rule 6).
 
 This skill owns the roadmap. The companion `my-changelog-management` skill owns the CHANGELOG. When a 🚧 → ✅ promotion happens, this skill drives the commit and delegates the CHANGELOG half to `my-changelog-management`.
 
 ## Adapting to the project
 
-This skill works for any software project. The paths, git workflow, and legend below are **defaults**, not law. Resolve a project's real conventions in this order, and never impose one the project contradicts:
+This skill works for any software project. The paths, git workflow, and legend below are **defaults**, not law. Resolve a project's real setup in this order:
 
-1. **Match what exists.** If `ROADMAP.md` is already present, follow its format, legend, and section scheme.
-2. **Read the project's `CLAUDE.md`** (and `CLAUDE.local.md` when present). It documents the roadmap's file name and location, the spec/plan location, git workflow (worktrees or not, default/release branch name, squash vs PR vs direct merge), and dev-report folder. Honour those over every default in this skill, including the commit rules. A project may keep more than one roadmap (for example a technical one and a product one); edit the one the project names for this kind of change, and ask if it names none.
-3. **Fall back to the defaults** in this skill (squash-merge to `main`, the legend below).
-4. **Ask when ambiguous** — e.g. project type, or where specs live if the project documents nothing. Don't guess a convention into existence.
+1. **Read `AGENTS.md` or `CLAUDE.md`.** It declares the roadmap path, the tracker kind, and the git workflow: worktrees or not, the main/release branch name, and squash versus PR versus direct merge. Honour it over every default in this skill, including the commit rules. A project may keep more than one roadmap, so edit the one it names for this kind of change. Ask when it names none.
+2. **Reuse a roadmap the project already keeps under another name.** A file that already holds this project's feature index is the roadmap. Never create a second one.
+3. **Fall back to the defaults** in this skill: `ROADMAP.md` at the project root, the legend below, and the git workflow and tracker kind you find in the repo.
 
-If no `ROADMAP.md` exists and the user wants one, offer to create it (default legend + a one-line intro); don't silently scaffold.
+Ask when a file might be the roadmap but nothing confirms it. Never guess a convention into existence.
+
+When an existing roadmap uses a different shape, such as a flat checklist or a done-log: in a project you do not control, follow it as-is. In your own projects, stop and report the mismatch. The user decides whether to edit it as-is or migrate it separately. Ask when you cannot tell which case applies.
+
+When the project has no roadmap, create `ROADMAP.md` on the first **edit** request: the legend below, a one-line intro, and the row. A question about the roadmap gets an answer and an offer to create it.
 
 ## Files
 
-- `ROADMAP.md` — project root by default, or the file the project's `CLAUDE.md` names (for example `docs/frontend-roadmap.md`). Everywhere below, `ROADMAP.md` means that file. Living index of features. Owned by this skill.
-- The row's spec and the row's plan — Find a row's spec and its plan from the project's rules, or from the links already in the roadmap; ask when neither says. Linked from roadmap rows.
+- `ROADMAP.md` — project root by default, or the file `AGENTS.md` or `CLAUDE.md` names (for example `docs/frontend-roadmap.md`). Everywhere below, `ROADMAP.md` means that file. Living index of features. Owned by this skill.
+- The row's spec and plan — held by the project's tracker. A local-markdown tracker keeps them at `.scratch/<slug>/spec.md` and `.scratch/<slug>/issues/NN-<slug>.md`. A GitHub-issue tracker keeps them in issues, listed with `gh issue list`. Use the links a row already carries. Ask when neither the row nor the tracker names one.
 - `CHANGELOG.md` — project root. Touched only via `my-changelog-management` (delegated at rule 6).
 - dev-report folder — `docs/dev-reports/` by default, used only when a dev report is written. Internal work (refactors / tests / lint / internal docs) gets no roadmap or changelog edit: `my-changelog-management` rule 2.
 
@@ -72,7 +77,7 @@ Open `ROADMAP.md` and find the area section the row belongs to (the `##` section
 
 **Old rows.** While you read, check the open rows (💭, 📋, 🚧). If some of them do not follow rule 11's order — most often, the body does not open with the kind of work, such as `bug in …` or `feature in …` — ask the user once, before the requested edit: "N open rows do not follow the row order, so they are hard to read cold. Rewrite them now, in a separate commit?" Ask at most once per session.
 
-- **On yes:** rewrite every open row to rule 11's order, in one commit of its own (`docs: rewrite ROADMAP rows in the row order`), before the requested edit. Read a row's linked document when the row alone does not say its kind or what the user sees. Never drop a fact that no linked document holds (rule 11). Keep every number. Change a title only when it names an internal step and not what changes for the user, and then update every place in `## Order of work` that quotes it. ✅ rows stay as they are: they are records.
+- **On yes:** rewrite every open row to rule 11's order, in one commit of its own (`docs: rewrite ROADMAP rows in the row order`), before the requested edit. Read a row's linked document when the row alone does not say its kind or what the user sees. Never drop a fact that no linked document holds (rule 11). Keep every number. Change a title only when it names an internal step and not what changes for the user, and then update every reference to it. ✅ rows stay as they are: they are records.
 - **On no:** do the requested edit only. The trim trigger in rule 11 still moves each row you touch.
 
 ### 2. Identify the lifecycle transition
@@ -88,7 +93,6 @@ A new row goes in only **after** the user has agreed to the idea in conversation
 - In a bullet roadmap, the number goes between the icon and the title: `- 💭 12 **<Short Name>** — …`. Tools that read the roadmap find it there.
 - Status: `💭`. Spec/plan column: `—`. No link required at this stage.
 - Title format: `**<Short Name>** — <body>`. The short name says what changes, in the words a user of the tool would use, not the name of an internal step. The body follows the order in rule 11.
-- Place it in the order. If the roadmap has an `## Order of work` section (rule 12), ask the user where the new row goes, or whether it stays unordered, and write the answer in the same edit. Never guess a position: the order is the user's decision.
 
 ### 4. Promote 💭 → 📋 — spec landed
 
@@ -104,7 +108,7 @@ Verify that the row's spec exists (see "Files"). If it doesn't, refuse the promo
 Two preconditions, both required:
 
 - The row's plan exists (see "Files").
-- Implementation has actually started in an isolated workspace appropriate to the project's git workflow. If the project uses worktrees (see its CLAUDE.md), a worktree exists; if it uses branches, the feature branch exists; if it legitimately works on the main branch, "started" is enough. The point is real work underway — not a worktree per se. Don't withhold 🚧 in a project that doesn't use worktrees.
+- Implementation has actually started in an isolated workspace appropriate to the project's git workflow. If the project uses worktrees (see its `AGENTS.md` or `CLAUDE.md`), a worktree exists; if it uses branches, the feature branch exists; if it legitimately works on the main branch, "started" is enough. The point is real work underway — not a worktree per se. Don't withhold 🚧 in a project that doesn't use worktrees.
 
 Then:
 
@@ -197,18 +201,17 @@ Why this is a rule and not a style preference: the row and the linked doc are tw
 
 ### 12. Dependencies are expressed as order, not as a graph
 
-A roadmap says what and roughly when. Blocking relations are execution detail — a tracker's job (GitLab issue relations, Jira "is blocked by"), where they are structural rather than narrated. A roadmap absorbs a dependency by **making it an order**: if A blocks B, B sits in a later tier. Do not build a `Depends on` column. A roadmap that needs a real graph is telling you the work belongs in issues.
+A roadmap says what and roughly when. Blocking relations are execution detail — a tracker's job (issue relations), where they are structural rather than narrated. A roadmap absorbs a dependency by **making it an order**: if A blocks B, B sits in a later tier. Do not build a `Depends on` column. A roadmap that needs a real graph is telling you the work belongs in issues.
 
 What to write instead, in escalating order of need:
 
 - **Nothing.** If the priority/status tiers already put the blocker first, the dependency is expressed. Stop here — a prose edge that only restates the tier is pure decay surface.
 - **One clause, one direction.** Where an edge genuinely changes the order, name the blocker *from the blocked row*: `Blocked by row 4b.` For a blocker outside the roadmap, such as a client's answer or a missing file, write `Waits for <what>.` in the same place. Never mix directions — "raises the ceiling on row 5" in one row and "the keying half is row 4b" in another forces the reader to parse each sentence for which way the arrow runs.
-- **An `## Order of work` section**, once more than a couple of edges exist. Bullets of the form `**4b, then 7, then 4c.** <the constraint that forces it>` — state the *reason* (shared migration, structural prerequisite), not just the sequence. Close with the contract that anything unnamed is unordered, so the section never has to list rows it has nothing to say about.
 
 Two failure modes to watch:
 
 - **Split-rot.** When rule 7 splits a row, inherited edge clauses keep pointing at numbers that no longer mean what they meant. A split keeps the parent's number, so an edge that now means a child still names the parent. Re-read every prose edge that names the parent, and point it at the parent or the child it now means.
-- **Two live orderings.** When a durable doc elsewhere already sequences the work — an action plan's phases, a code review's "suggested order of work", a spec's phasing — do not maintain a second copy. Keep one live, and leave a dated supersession note on the other pointing at it (rule 8's linking discipline applies).
+- **Duplicate orderings.** A durable doc elsewhere may already sequence the work, such as an action plan's phases or a spec's phasing. Do not maintain a second copy. Keep one live ordering and link to it from the roadmap.
 
 ## Common mistakes
 
