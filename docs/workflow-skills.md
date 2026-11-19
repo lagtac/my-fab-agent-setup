@@ -2,84 +2,95 @@
 
 Four skills answer four questions about a project's files. You ask in plain words, and the agent picks the skill. Say the skill's name when you want it directly. A fifth skill, `my-name-pane`, labels the tmux pane after the row you picked and owns no file.
 
+The terms *initiative*, *horizon*, and *release* are defined in [GLOSSARY.md](../GLOSSARY.md).
+
 | You ask | Skill | File it owns |
 |---|---|---|
-| Where are we? What is next? What is blocked? | `my-status` | `STATUS.md` |
+| Where are we? What is next? What is blocked? | `my-status` | `STATUS.md`, a view over the tracker |
 | Log the day, or read it back | `my-worklog` | `WORKLOG.md` |
-| Update the roadmap, mark a feature shipped | `my-roadmap-management` | `ROADMAP.md` |
-| Add a changelog entry for a change with no roadmap row | `my-changelog-management` | `CHANGELOG.md` |
+| Update the roadmap, add or move an initiative | `my-roadmap-management` | `ROADMAP.md` |
+| Add a changelog entry, cut a release | `my-changelog-management` | `CHANGELOG.md` |
+
+## The split
+
+Three artifacts, three jobs:
+
+- **The roadmap** holds the investment decision: which initiatives we are funding, over a rolling horizon.
+- **The tracker** holds execution: specs, tickets, blocking edges, and triage state. A local-markdown tracker keeps them under `.scratch/<slug>/`; a GitHub-issue tracker keeps them in issues.
+- **The changelog** holds the release record: what each release changed for users and operators.
+
+A fact lives in one place. The roadmap and changelog link to the tracker; they do not copy it.
 
 ## A normal day
 
-1. **Start with "what is next".** `my-status` prints the `Next` section with a link for each item. When `Next` is empty, it lists the open tracker items, from `.scratch/<slug>/` or GitHub issues. You pick the work.
-2. **Mark the item started**: say "move X to active". `my-status` moves it from `Next` to `Active`. For a roadmap feature, also promote its row `📋 → 🚧` once the plan exists and work has started. `Active` and `🚧` track the same work: a status line and a roadmap row.
-3. **Work.** Mid-flight changes go to the roadmap: a reframe, a split, or a new spec link. The agent commits only when you ask, so say when you want one.
-4. **Ship and finish.** "Mark X shipped" moves the roadmap row to `✅` and writes the changelog entry in the same commit. "Finish X" deletes the item from `Active`. The two edits close the same piece of work.
+1. **Start with "what is next".** `my-status` prints the `Next` section from the tracker, each item with a link. When `Next` is empty, it lists the open, unblocked items. You pick the work.
+2. **Mark the item started.** The tracker records the claim; the status view reflects it. For a roadmap initiative, the row is already under `Now`, or you move it there.
+3. **Work.** Mid-flight changes go to the tracker: a reframe, a split, a new spec. The roadmap row changes only when the initiative itself changes.
+4. **Ship.** The change lands on main. If it completes a roadmap initiative, remove the row and cut a release. The changelog records what users and operators get.
 5. **End with "log the day".** `my-worklog` appends today's heading and the session's bullets. A `Decision:` line records a choice and its reason. A `Handoff:` line names what the next session should pick up.
-6. **Next morning**, "where are we" shows the status file, its age, and what waits on what. The worklog holds yesterday's reasoning.
+6. **Next morning**, "where are we" shows the status view, its age, and what waits on what. The worklog holds yesterday's reasoning.
 
 The day is a loop. "Next morning" returns to the first step.
 
 ```mermaid
 flowchart LR
-    A["1 what is next"] --> B["2 mark started<br/>Next to Active"]
-    B -->|roadmap feature| R["promote row to 🚧"]
-    B -->|plain item| C["3 work"]
-    R --> C
-    C --> D["4 ship and finish<br/>roadmap ✅ + changelog"]
+    A["1 what is next"] --> B["2 start<br/>tracker claim"]
+    B --> C["3 work"]
+    C --> D["4 ship<br/>initiative row rolls off; cut a release"]
     D --> E["5 log the day"]
     E -->|next morning| A
 ```
 
 ## What each file holds
 
-- **`STATUS.md`** is an index, not a record. It holds one sentence of present state, then active work, blockers, and hand-picked next items. Every line links to the tracker item or doc that explains it. The `Updated:` date tells you how fresh the file is.
+- **`STATUS.md`** is a view, not a record. It holds one sentence of present state, then active work, blockers, and the unblocked frontier. Every line links to the tracker item or doc that explains it. Delete it and the tracker can rebuild it. The `Updated:` date tells you when it was last rendered.
 - **`WORKLOG.md`** is the narrative, one heading per day, newest last. It is append-only, so earlier days stay as written. It holds what you did, the decisions, and the handoffs.
-- **`ROADMAP.md`** is the forward view of features, from 💭 to ✅. A row earns `💭` on agreement, `📋` with its spec, and `🚧` with its plan and started work. A row is short and links to its spec and plan. Dependencies show up as order, not as a graph.
-- **`CHANGELOG.md`** is the backward view of what reached the main branch. It records contract and behaviour changes for users and operators. Internal work gets no entry.
+- **`ROADMAP.md`** is the forward index of initiatives over `Now`, `Next`, and `Later`. A row is one initiative: what changes for the user, and a link to its spec. Confidence is an optional note. A shipped initiative rolls off; the changelog is its record. The tracker owns blocking edges.
+- **`CHANGELOG.md`** is the backward record of releases. A release is a date-named section, cut by hand. Entries are generated from Conventional Commits and then edited into user language. Internal work gets no entry.
 
-## The two lifecycles
+## The roadmap row and the tracker item
 
-The roadmap row and the status item each pass through a fixed set of states. A state diagram shows every state, its allowed moves, and the condition for each move.
+The roadmap row and the tracker item move on different tracks. The roadmap orders investment; the tracker records execution.
 
 ### Roadmap row
 
 ```mermaid
 stateDiagram-v2
-    state "💭 discussed" as D
-    state "📋 planned" as P
-    state "🚧 in progress" as W
-    state "✅ shipped" as S
-    [*] --> D: idea agreed
-    D --> P: spec exists
-    P --> W: plan exists and work started
-    W --> S: merged to main, changelog in the same commit
+    state "Later" as L
+    state "Next" as N
+    state "Now" as W
+    [*] --> L: initiative agreed
+    L --> N: queued
+    N --> W: work starts
+    W --> N: deprioritized
+    W --> [*]: shipped, row removed
 ```
 
-A row enters at `💭` only after you agree to the idea. Each later move needs its linked document, or the merge for `✅`.
+A row enters after you agree to the initiative. The horizon is the schedule; there is no promotion ceremony. When the initiative ships, the row leaves and the changelog records the release.
 
-### Status item
+### Tracker item
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Next: new candidate agreed
-    Next --> Active: start
-    Active --> Blocked: a blocker appears
-    Blocked --> Active: the blocker clears
-    Active --> [*]: finish
+    [*] --> Open
+    Open --> Blocked: blocker recorded
+    Blocked --> Open: blocker clears
+    Open --> Claimed: started
+    Claimed --> Resolved: finished
+    Resolved --> [*]
 ```
 
-`Next` and `Active` are the two live states. `Blocked` is a detour back to `Active`. Finishing deletes the line, because the tracker and worklog keep the record.
+The tracker owns this lifecycle. `my-status` renders it; it does not change it.
 
 ## Where does this go?
 
 - A refactor, test, lint pass, or internal doc note → the worklog.
 - A user-visible fix, a changed default, or a deploy change such as an env var or port → the changelog.
-- A removed feature → the changelog `### Removed` entry. The `✅` roadmap row stays.
-- A whole feature → the roadmap, plus the changelog when it ships. Route a shipment through `my-roadmap-management`, so both files change in one commit. A changelog entry alone is for changes with no roadmap row.
+- A removed feature → the changelog `### Removed` entry.
+- A whole initiative → a roadmap row linking its spec, plus a changelog release when it ships.
 - A decision → the worklog `Decision:` line, with a link to the doc that argues it.
-- A blocked item → `STATUS.md` under `Blocked`, naming what it waits for.
-- A started or finished item → `STATUS.md`, moved to `Active` or deleted.
+- A blocked item → the tracker's `Blocked by` line, reflected under `Blocked` in the status view.
+- A started or finished item → the tracker, reflected under `Active` or removed from the view.
 
 ## Adopting the skills in a project
 
@@ -106,6 +117,6 @@ A project that already keeps a status file, worklog, roadmap, or changelog under
 
 - Ask the skill instead of editing the files by hand, so the shape stays consistent.
 - Keep `STATUS.md` lines as links. A copied fact goes stale in one of its two homes.
+- Keep roadmap rows on initiatives. A ticket belongs in the tracker.
 - Log the day before you stop. A handoff written tomorrow loses the detail you had today.
-- Bump `Updated:` whenever you touch the status file.
-- Promote a roadmap row to ✅ only after the change has landed on the main branch.
+- Cut a release when you want to report what changed. The date is the version.
