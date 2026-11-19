@@ -54,3 +54,9 @@ Done when every requested day appears in the reply, or the reply says that day h
 Search with `grep -n 'Decision:' WORKLOG.md`, and the same for `Handoff:`. Print each match under its date.
 
 Done when every match is listed with the day it belongs to.
+
+## 4. Create the file
+
+When the project has none, create it on the first **edit** request, using the shape above. A read request gets one line saying the project has no worklog yet, plus an offer to create the file. Outside a repo, say "no project here" and stop.
+
+Done when the file exists at the resolved path under a `# Worklog` title, with today's heading and the session's bullets.
