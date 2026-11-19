@@ -3,7 +3,7 @@ name: my-worklog
 description: >
   Write, read, or search WORKLOG.md, the append-only daily record of work
   done, decisions, and handoffs. Trigger on "log the day", "worklog", "what
-  did we do today", "end of day notes", and "handoff".
+  did we do today", "end of day notes", and "log a handoff".
 ---
 
 # Worklog
