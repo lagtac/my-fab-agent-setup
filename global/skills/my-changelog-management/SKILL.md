@@ -1,153 +1,152 @@
 ---
 name: my-changelog-management
 description: >
-  Use when editing CHANGELOG.md — recording a shipped feature, deployment or
-  config change, user-visible bug fix, or removed capability. Trigger on
-  phrases like "add a changelog entry", "note the deploy change", "we just
-  shipped X", "X is fixed on main", or "the env var changed". Owns CHANGELOG
-  scope, structure, and commit discipline. When the edit is paired with a
-  roadmap promotion (🚧 → ✅), the `my-roadmap-management` skill drives and this
-  skill handles the CHANGELOG half.
+  Use when editing CHANGELOG.md — recording a shipped feature, a deployment or
+  config change, a user-visible bug fix, or a removed capability. Trigger on
+  "add a changelog entry", "note the deploy change", "we just shipped X", "X is
+  fixed on main", and "the env var changed". Owns the changelog scope,
+  structure, dating, and commit discipline. A 🚧 → ✅ roadmap promotion is
+  driven by my-roadmap-management; this skill writes the changelog half.
 ---
 
-# Changelog Management
+# Changelog
 
-CHANGELOG records contract or behaviour changes that reached `main` — what users, operators, and downstream services experience. Refactors, tests, lint, and internal docs do not belong here; a dev report covers them (rule 2, the scope check).
+A CHANGELOG records the contract and behaviour changes that reached `main`. It is written for the people who deploy the project, use it, or depend on its output. Internal work earns no entry: refactors, tests, lint, formatting, and internal docs belong in the worklog.
 
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). For a deployed app, a `### Deployment Contract` heading at the top of `[Unreleased]` collects operator-facing deploy/config changes; libraries usually omit it, and a project may define its own contract heading (see Adapting).
+A changelog looks backward. A roadmap looks forward. They meet at one moment: the integration that promotes a roadmap row from 🚧 to ✅. That edit touches both files in one commit.
 
 ## Adapting to the project
 
-This skill works for any software project. The specifics here are **defaults**; resolve a project's real conventions in this order, and never impose one it contradicts:
+Resolve a project's conventions in this order, and never impose one it contradicts:
 
-1. **Match what exists** — follow the format an existing `CHANGELOG.md` already uses.
-2. **Read the project's `CLAUDE.md`** (and `CLAUDE.local.md` when present) — it may document a custom contract heading, entry format, file locations, which changes earn an entry, and git workflow. Honour those over every default in this skill, including the bold rows of the decision table and the commit rules. For example, a project may want refactors logged, or may want the entry inside the feature's own commit rather than in a separate `docs(changelog)` commit.
-3. **Fall back to the defaults** — Keep a Changelog 1.1.0, and `docs/dev-reports/` for a dev report the user asks for.
-4. **Ask when ambiguous** — especially project type (below).
+1. **Read `AGENTS.md`, then `CLAUDE.md`**, and `CLAUDE.local.md` when present. It may declare the changelog path, a custom contract heading, an entry format, and which changes earn an entry. It may also declare the git workflow. Its word wins over every default here, including the bold rows of the decision table and the commit rules. A project may want refactors logged, or the entry inside the feature's own commit.
+2. **Reuse a changelog the project already keeps under another name**, such as `HISTORY.md` or `CHANGES.md`. Follow the format that file already uses.
+3. **Fall back to the defaults**: `CHANGELOG.md` at the repo root, Keep a Changelog 1.1.0, and the headings in this skill.
+4. **Ask when a file might be the changelog and nothing confirms it.** Never guess a convention into existence.
 
-**Scale entries to whoever consumes this project's main/release branch:**
-- **Deployed app / service** → operators (deploy + config) and end users. Operator-facing changes go under `### Deployment Contract` (default).
-- **Library / SDK / CLI** → API consumers. Breaking changes are the headline: mark them and respect semver (e.g. a `**BREAKING**` prefix under `### Changed` / `### Removed`); `### Deployment Contract` usually doesn't apply.
-- **Data / ML pipeline or other** → whoever downstream depends on its output; the project may define its own contract heading (e.g. `### Dataset Contract`) — match what its CLAUDE.md documents.
+Scale each entry to whoever consumes the main branch:
 
-If no `CHANGELOG.md` exists and the user wants one, offer to create it with a Keep a Changelog header; don't silently scaffold.
+- **Deployed app or service** → operators and end users. Operator-facing changes go under `### Deployment Contract`.
+- **Library, SDK, or CLI** → API consumers. Mark breaking changes with `**BREAKING**` under `### Changed` or `### Removed`, and respect semver.
+- **Data or ML pipeline** → whoever depends on the output. The project may define its own heading, such as `### Dataset Contract`. Follow what it declares.
+
+When the project has no changelog and the user wants one, offer a Keep a Changelog header. Do not scaffold it silently.
 
 ## Files
 
-- `CHANGELOG.md` — project root (default).
-- The row's spec and the row's plan — Find a row's spec and its plan from the project's rules, or from the links already in the roadmap; ask when neither says. Linked from entries.
-- dev-report folder — `docs/dev-reports/` by default, used only when the user asks for a dev report (rule 2, the scope check).
+- `CHANGELOG.md` — the path `AGENTS.md` or `CLAUDE.md` names, else a file under another name, else `CHANGELOG.md` at the repo root. Everywhere below, `CHANGELOG.md` means that file.
+- The spec and plan for a shipped row. A local-markdown tracker keeps them at `.scratch/<slug>/spec.md` and `.scratch/<slug>/issues/NN-<slug>.md`. A GitHub-issue tracker keeps them in issues, listed with `gh issue list`. Take the links from the roadmap row or from the tracker, and ask when neither names one.
 
 ## Decision table
 
 | Situation | Where it goes | Rule |
 |---|---|---|
-| Roadmap row promoted 🚧 → ✅ | Dated narrative entry inside `[Unreleased]`, paired with roadmap edit | 6, 8 |
-| Deployment / config change (port, env var, runtime dep, package manager) | `### Deployment Contract` at top of `[Unreleased]` | 5 |
+| Roadmap row promoted 🚧 → ✅ | Dated narrative entry inside `[Unreleased]`, in the same commit as the roadmap edit | 6, 9 |
+| Deployment or config change (port, env var, runtime dep, package manager) | `### Deployment Contract` at the top of `[Unreleased]` | 5 |
 | User-visible feature shipped without a roadmap row | `### Added` bullet | 4 |
 | Behaviour or contract changed (route, response shape, default) | `### Changed` bullet | 4 |
 | Bug fix to user-visible behaviour on `main` | `### Fixed` bullet | 4 |
 | Feature, route, or runtime dep removed | `### Removed` bullet | 4 |
 | Notable docs reorg (cross-referenced specs, audits) | `### Docs` bullet | 4 |
-| Major coherent shipment (multi-aspect, multi-paragraph) | `### YYYY-MM-DD — Title` dated narrative | 6 |
-| **Refactor, test, lint, formatting, internal-only docs** | **No CHANGELOG entry** (a dev report covers it) | 2 |
+| Major coherent shipment (multi-aspect, several paragraphs) | `### YYYY-MM-DD — Title` dated narrative | 6 |
+| **Refactor, test, lint, formatting, internal-only docs** | **No entry** — point the user to `my-worklog` | 2 |
 
-If the change fits no row, ask the user before editing.
+If a change fits no row, ask the user before editing.
 
 ## Rules
 
 ### 1. Locate the `[Unreleased]` block
 
-Read CHANGELOG.md and find the current `## [Unreleased]` block. Some projects date it (`## [Unreleased] — YYYY-MM-DD`), some do not; keep whichever form the file uses. Use the existing subsection conventions inside it — don't invent new heading shapes.
+Read the changelog and find the current `## [Unreleased]` block. Some projects date it (`## [Unreleased] — YYYY-MM-DD`) and some do not. Keep the form the file already uses, with its subsection names.
 
 ### 2. Scope check — does it earn an entry?
 
-Apply the decision table. If the change is internal-only (refactor, test addition, lint config, formatting, code comments, internal docs), make no CHANGELOG edit and stop. Tell the user in one line that it is internal work, which a dev report (`my-dev-reports`) covers. Do not write a dev report unless the user asks for one. The test: *would an operator deploying this or a user reading release notes care?* If no, it gets no entry.
+Apply the decision table. Internal work gets no entry. Name it as internal in one line and tell the user that `my-worklog` records it. The test: would an operator deploying this, or a user reading release notes, care? When the answer is no, stop.
 
 ### 3. Pick a structure
 
-Three compatible patterns inside `[Unreleased]`:
+Three forms coexist inside `[Unreleased]`:
 
-- **Categorised bullet** (rule 4) — atomic changes.
-- **Deployment Contract** (rule 5) — operator-facing config/deploy changes.
-- **Dated narrative** (rule 6) — major coherent shipments.
+- **Categorised bullet** (rule 4) for atomic changes.
+- **Deployment Contract** (rule 5) for operator-facing config and deploy changes.
+- **Dated narrative** (rule 6) for major coherent shipments.
 
-These coexist in one `[Unreleased]` block; pick whichever fits the change's shape.
+Pick the form that fits the shape of the change.
 
-### 4. Categorised bullet — Keep a Changelog standard
+### 4. Categorised bullet
 
-Use one of: `### Added`, `### Changed`, `### Fixed`, `### Removed`, `### Docs`. One bullet per change. Past tense, user-facing language, terse. Link the spec/plan if one exists:
+Use one of `### Added`, `### Changed`, `### Fixed`, `### Removed`, `### Docs`. One bullet per change, in the past tense, in user-facing language, terse. Link the spec or plan when one exists:
 
-```
+```markdown
 ### Fixed
-- Upload form now surfaces inline message when Firefox 149 on Wayland delivers an empty `DataTransfer`. See [the plan](<path to the plan>).
+- Upload form now shows an inline message when Firefox 149 on Wayland sends an empty `DataTransfer`. See [the plan](<path to the plan>).
 ```
 
-### 5. Contract heading — consumer-facing changes go first
+### 5. Contract heading — consumer-facing changes first
 
-For a deployed app, place a `### Deployment Contract` heading at the **top** of `[Unreleased]`, before `### Added`. Use it for: port changes, new or renamed env vars, package-manager migrations, new runtime dependencies, infra requirements, CI/CD pipeline additions. Each bullet should tell an operator what they have to do or know.
+For a deployed app, place `### Deployment Contract` at the top of `[Unreleased]`, before `### Added`. Use it for port changes, new or renamed environment variables, package-manager migrations, new runtime dependencies, infrastructure requirements, and pipeline additions. Each bullet tells an operator what to do or know.
 
-Adapt by project type (see Adapting): use the project's own contract heading if it defines one (e.g. `### Dataset Contract`); for a **library/SDK** there's no operator step — record breaking API changes under `### Changed` / `### Removed` with a `**BREAKING**` marker and a semver note instead.
+Follow the project type (see Adapting): use its own contract heading when it declares one. A library records a breaking API change under `### Changed` or `### Removed` with a `**BREAKING**` marker.
 
 ### 6. Dated narrative — major coherent shipments
 
-When a single feature warrants more than three or four bullets, give it its own subsection inside `[Unreleased]`:
+When one feature needs more than three or four bullets, give it a subsection inside `[Unreleased]`:
 
-```
+```markdown
 ### YYYY-MM-DD — <Feature Name> (<Roadmap Reference>)
 
-<one short paragraph framing what shipped and why>
+<One short paragraph: what shipped, and why.>
 
-- <details>
-- <details>
+- <detail>
+- <detail>
 ```
 
-This is the form a roadmap promotion (🚧 → ✅) usually takes. Include the roadmap reference (e.g., `Checkout #2b`) so a reader can locate the feature in `ROADMAP.md`.
+A roadmap promotion (🚧 → ✅) usually takes this form. Carry the roadmap reference, such as `Checkout #2b`, so a reader can find the row.
 
 ### 7. Update the `[Unreleased]` date
 
-Only when the heading carries a date: if the existing `## [Unreleased] — YYYY-MM-DD` date is older than today, bump it to today. Never add a date to an undated heading. The date marks the most recent contribution to the unreleased window, not the start of it.
+When the heading carries a date and that date is older than today, bump it to today. Never add a date to an undated heading. The date marks the latest contribution to the unreleased window.
 
 ### 8. Link to specs and plans
 
-Every entry whose change has a spec or a plan should link to it inline. Roadmap rows and CHANGELOG entries are tied together through their shared links to the spec and the plan, not to each other directly.
+An entry whose change has a spec or a plan links to it inline. Roadmap rows and changelog entries meet through those shared links, and not through a link to each other.
 
-Same link discipline as `my-roadmap-management` rule 8 — a CHANGELOG is read on the Git host's web UI and is often exported to HTML for release notes, so links must survive both:
+Link discipline:
 
-- **Same-repo targets → relative `.md`**, never hardcode `.html`. The host renders Markdown; an HTML export rewrites the extension at build time, so `.html` in source breaks the hosted and raw views.
-- **Out-of-repo targets → absolute web URLs**, not relative `../other-repo/...` paths — a cross-repo relative path is dead anywhere but a local checkout with the sibling repo beside it.
-- When a linked doc is moved, archived, or renamed, repoint the link; `git grep` the old path across `CHANGELOG.md`, `ROADMAP.md`, and `docs/`.
-- An entry that references a now-deleted doc (e.g. a runbook removed with the feature it documented) should be **unlinked** — keep the filename as plain text so the historical entry still reads, but don't leave a dead link.
+- **Same-repo targets use a relative `.md` path.** A changelog is read on the Git host and often exported to HTML for release notes. The host renders Markdown, and the build rewrites the extension, so an `.html` path in source breaks both views.
+- **Out-of-repo targets use an absolute web URL.** A relative path that climbs out of the repo dies outside a local checkout that holds the sibling repo. Verify the target's default branch before you write the URL.
+- **A moved, archived, or renamed doc gets its links repointed.** Run `git grep` on the old path across `CHANGELOG.md`, `ROADMAP.md`, and `docs/`.
+- **An entry for a deleted doc is unlinked.** Keep the filename as plain text so the historical entry still reads.
 
 ### 9. Commit discipline
 
-- **CHANGELOG-only edits**: one commit. Conventional Commits format: `docs(changelog): note <change>`.
-- **Paired with roadmap promotion (🚧 → ✅)**: one commit covers both files. `my-roadmap-management` rule 6 owns the message — typically `docs: mark <feature> shipped on roadmap and changelog`. Don't split the edits across two commits; a reader bisecting `main` should never see a half-paired state.
+- **Changelog-only edits**: one commit, `docs(changelog): note <change>`.
+- **Paired with a roadmap promotion (🚧 → ✅)**: one commit covers both files. `my-roadmap-management` rule 6 owns the message, usually `docs: mark <feature> shipped on roadmap and changelog`. A reader bisecting `main` must never see half of the pair.
 - Run rule 10's link check first.
+
+Use Conventional Commits in all cases.
 
 ### 10. Cross-check the entry you just wrote
 
-Edit-scoped only — no full-file audits:
+- The entry sits in the right subsection. Deployment-contract changes go at the top of `[Unreleased]`, not under `### Added`.
+- The change has landed on `main`. When you are unsure, ask before you commit.
+- Rule 2 still holds: internal work gets no entry.
+- Before the commit, run `/home/dchris/.config/opencode/skills/bin/link-check.py CHANGELOG.md`. Fix every `new` problem by rule 8: `html` → the `.md` twin's path; `climbs` → the absolute web URL; `dead` → the moved file's path, or unlink a deleted document and keep its name as plain text. Ask when you cannot tell which. List every `old` problem to the user, one line each, and leave it. If the script is missing or exits `2`, show its stderr line and check the new links by hand. Skip this run when the entry is the changelog half of a paired edit: `my-roadmap-management` rule 10 runs the check once on both files.
 
-- The new entry sits in the right subsection (deployment-contract changes at the top of `[Unreleased]`, not under `### Added`).
-- The change actually landed on `main` (you should know this from context — don't speculate; if uncertain, ask the user before committing).
-- Re-run rule 2: is this internal work, which gets no entry?
-- Before the commit in rule 9, run `/home/dchris/.config/opencode/skills/bin/link-check.py CHANGELOG.md`. Fix every `new` problem by rule 8: `html` → the `.md` twin's path; `climbs` → the absolute web URL on the Git host; `dead` → the moved file's path, or, when the document was deleted, unlink it and keep its name as plain text; ask the user when you cannot tell which. List every `old` problem to the user, one line each, and leave it. If `/home/dchris/.config/opencode/skills/bin/link-check.py` is not on `PATH`, or it exits `2`, show its stderr line (or say it is missing) and check by hand that the links in the entry you wrote resolve. Skip this run when the entry is the changelog half of a paired edit: `my-roadmap-management` rule 10 runs the check once on both files.
-
-Skip broad scans (orphan-entry sweeps). Run those only when the user explicitly asks for a CHANGELOG audit. The link check reads the whole file, but fixing old links is audit work.
+Skip broad scans such as orphan-entry sweeps. Run those only when the user asks for a changelog audit.
 
 ### 11. Entry content discipline — summarise the change, link the detail
 
-A CHANGELOG entry records **what changed** for whoever consumes the branch; it is not a copy of the spec, plan, experiment-log, or briefing that explains the change. State the contract/behaviour delta in user/operator language and link the detail (rule 8) — don't reproduce metrics, commit SHAs, per-phase play-by-play, or full verdict reasoning that the linked doc already owns. Those facts live in one place — the linked doc, the source of truth — so a later correction there doesn't strand a stale copy here.
+An entry records what changed for whoever consumes the branch. It is not a copy of the spec, plan, experiment log, or worklog entry that explains the change. State the contract or behaviour delta in user and operator language, and link the detail (rule 8). Metrics, commit SHAs, per-phase play-by-play, and full verdict reasoning stay in the linked doc, which remains the source of truth.
 
-A dated narrative (rule 6) is still **one short framing paragraph + bullets of what changed**, not a transplanted results section. If a bullet carries a figure only to re-prove a point the linked doc already makes, cut the figure and keep the link. (The companion `my-roadmap-management` rule 11 enforces the same index-not-archive discipline on the roadmap side.)
+A dated narrative (rule 6) is still a short framing paragraph plus bullets of what changed. Cut a figure that only re-proves a point the linked doc already makes. Keep the link. The companion `my-roadmap-management` rule 11 applies the same rule to roadmap rows.
 
 ## Common mistakes
 
-- Logging a refactor or test addition because "it's a notable change." Notable to whom? Refactors get no entry (rule 2, the scope check).
-- Burying a deployment-affecting change in `### Changed`. Operators read top-down; `### Deployment Contract` exists so they don't miss it.
-- Adding an entry before the change has actually landed on the main/release branch. Wait for the merge.
-- Editing CHANGELOG without the paired roadmap edit when promoting ✅ — see `my-roadmap-management` rule 6.
-- Updating CHANGELOG entries when a plan file is renamed and forgetting that ROADMAP also linked to it. Use `git grep` on the old path.
-- Transplanting an experiment-log's metrics, SHAs, or verdict reasoning into a CHANGELOG entry. Summarise the change and link the detail (rule 11).
-- Hardcoding `.html`, linking a cross-repo file by a relative `../other-repo/...` path, or leaving a link to a doc that was deleted. Same-repo → relative `.md`; cross-repo → absolute URL; deleted target → unlink to plain text (rule 8).
+- Logging a refactor or a test addition because it feels notable. Notable to whom? It gets no entry (rule 2).
+- Burying a deployment-affecting change under `### Changed`. `### Deployment Contract` exists so operators see it.
+- Adding an entry before the change lands on the main branch. Wait for the merge.
+- Promoting a roadmap row to ✅ without the changelog half, or the reverse (rule 9).
+- Renaming a plan file and repointing the changelog link while the roadmap link stays stale. Use `git grep` on the old path.
+- Transplanting an experiment log's metrics, SHAs, or verdict reasoning into an entry (rule 11).
+- Hardcoding `.html`, linking a cross-repo file by a relative path, or leaving a link to a deleted doc (rule 8).
