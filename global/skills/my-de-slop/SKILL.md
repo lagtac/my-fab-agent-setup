@@ -267,3 +267,43 @@ This is shorter and it is worse. The clause defining *bundle* was not padding �
 without it the sentence only works for a reader who already knew the term.
 Removing slop and removing meaning look similar from inside the edit; the test
 is whether someone lacking the author's context can still follow the result.
+
+### A real cover letter: Layer 1 and Layer 2 together
+
+The facts are genuine. The slop sits in the framing around them.
+
+**Input:**
+> Subject: Full Stack Developer Ready to Drive Innovation at PRODYNA
+>
+> Dear Hiring Manager,
+> I am thrilled to express my interest in the Full Stack Developer position at PRODYNA. With over 17 years of experience in web content and application development, I have honed my skills in Python and FastAPI, making me an ideal candidate for your team.
+> At Bookscanner, I developed a multi-service platform for detecting dental diseases, which included an image annotation app, a Python ML API, and a mobile-first prediction web app for clinicians. I built the ML backend using FastAPI, YOLO, and pytest, and served it as a versioned REST API. I also containerized services with Docker and managed production deployment and security. My role at KPMG Greece involved managing content across web properties, developing client-facing products, and creating internal tools that streamlined operations.
+> PRODYNA's focus on innovative and tailor-made software solutions resonates with my passion for developing high-quality applications. I am eager to contribute to your agile and collaborative environment, leveraging my skills in Python, FastAPI, and full-stack development to support your clients' digital transformation.
+> Thank you for considering my application. I look forward to discussing how my expertise can drive success for your team.
+> Sincerely,
+> Dimitris Chrysomallis
+
+**Output:**
+> Subject: Application for Full Stack Developer at PRODYNA
+>
+> Dear Hiring Manager,
+>
+> I am applying for the Full Stack Developer position at PRODYNA.
+>
+> I have over 17 years of experience in web content and application development. I work in Python and FastAPI.
+>
+> At Bookscanner I built a multi-service platform for detecting dental diseases: an image annotation app, a Python ML API, and a mobile-first prediction web app for clinicians. The ML backend uses FastAPI, YOLO, and pytest, and runs as a versioned REST API. I containerized the services with Docker and handled production deployment and security.
+>
+> At KPMG Greece I managed content across web properties, built client-facing products, and wrote internal tools that sped up operations.
+>
+> PRODYNA builds tailor-made software. Building high-quality applications is what I care about.
+>
+> I want to join your team and use my Python, FastAPI, and full-stack skills for your clients.
+>
+> Thank you for considering my application. I would like to talk about how I can help your team.
+>
+> Sincerely,
+> Dimitris Chrysomallis
+>
+> ---
+> **Changes:** Layer 1 and Layer 2 together. Cut the self-praise and filler openers ("I am thrilled to express my interest", "I have honed my skills", "making me an ideal candidate", "I am eager to contribute", "resonates with my passion"). Swapped corporate words ("leveraging" → "use", "streamlined operations" → "sped up operations", "drive innovation"/"drive success" removed, "digital transformation" dropped). Reworded "My role at KPMG Greece involved managing" into a direct verb, and gave the subject line a plain noun. Varied sentence length with two short sentences ("I work in Python and FastAPI.", "PRODYNA builds tailor-made software."). Every fact from the input is kept; none was added.
