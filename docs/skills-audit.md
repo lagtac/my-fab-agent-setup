@@ -9,78 +9,80 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 
 | # | Skill | Source | Load (tok) | Catalogue (tok) | Shadowed |
 |---:|---|---|---:|---:|---|
-| 1 | skill-creator | ~/.claude/skills | 9,080 | 83 |  |
-| 2 | pptx | ~/.claude/skills | 7,218 | 242 |  |
-| 3 | my-tune-claude-instructions | ~/.config/opencode/skills | 6,121 | 141 | `~/.claude/skills/my-tune-claude-instructions/SKILL.md` |
-| 4 | my-roadmap-management | ~/.config/opencode/skills | 5,550 | 122 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
-| 5 | morning | ~/.claude/skills | 4,540 | 87 |  |
-| 6 | doc-coauthoring | ~/.claude/skills | 3,953 | 111 |  |
-| 7 | google-workspace | ~/.claude/skills | 3,840 | 241 |  |
-| 8 | my-de-slop | ~/.config/opencode/skills | 3,541 | 100 | `~/.claude/skills/my-de-slop/SKILL.md` |
-| 9 | learn | ~/.claude/skills | 3,362 | 247 |  |
-| 10 | deep-research | ~/.claude/skills | 3,283 | 146 |  |
-| 11 | my-deep-research | ~/.config/opencode/skills | 3,242 | 146 | `~/.claude/skills/my-deep-research/SKILL.md` |
-| 12 | ask-matt | ~/.agents/skills | 3,148 | 23 |  |
-| 13 | wayfinder | ~/.agents/skills | 3,102 | 52 |  |
-| 14 | impeccable | ~/.agents/skills | 2,940 | 150 |  |
-| 15 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
-| 16 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
-| 17 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
-| 18 | my-changelog-management | ~/.config/opencode/skills | 2,603 | 118 | `~/.claude/skills/my-changelog-management/SKILL.md` |
-| 19 | teach | ~/.agents/skills | 2,433 | 17 |  |
-| 20 | computer-use | ~/.claude/skills | 2,317 | 237 |  |
-| 21 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
-| 22 | xlsx | ~/.claude/skills | 2,149 | 240 |  |
-| 23 | pdf | ~/.claude/skills | 2,018 | 110 |  |
-| 24 | docx | ~/.claude/skills | 1,909 | 235 |  |
-| 25 | setup-ts-deep-modules | ~/.agents/skills | 1,886 | 52 |  |
-| 26 | setup-matt-pocock-skills | ~/.agents/skills | 1,881 | 51 |  |
-| 27 | build-awwwards-quality-sites | ~/.agents/skills | 1,804 | 131 |  |
-| 28 | code-review | ~/.agents/skills | 1,680 | 108 |  |
-| 29 | triage | ~/.agents/skills | 1,639 | 36 |  |
-| 30 | built-in-browser | ~/.claude/skills | 1,632 | 209 |  |
-| 31 | codebase-design | ~/.agents/skills | 1,611 | 70 |  |
-| 32 | improve-codebase-architecture | ~/.agents/skills | 1,507 | 39 |  |
-| 33 | writing-shape | ~/.agents/skills | 1,480 | 23 |  |
-| 34 | chrome-browser | ~/.claude/skills | 1,470 | 192 |  |
-| 35 | to-tickets | ~/.agents/skills | 1,453 | 65 |  |
-| 36 | my-md-tables | ~/.config/opencode/skills | 1,398 | 111 | `~/.claude/skills/my-md-tables/SKILL.md` |
-| 37 | my-git-squasher | ~/.config/opencode/skills | 1,386 | 51 | `~/.claude/skills/my-git-squasher/SKILL.md` |
-| 38 | find-skills | ~/.agents/skills | 1,368 | 79 |  |
-| 39 | de-slop | ~/.claude/skills | 1,348 | 138 |  |
-| 40 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
-| 41 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
-| 42 | retro | ~/.agents/skills | 1,092 | 13 |  |
-| 43 | pr | ~/.agents/skills | 1,042 | 8 |  |
-| 44 | wizard | ~/.agents/skills | 1,030 | 80 |  |
-| 45 | my-status | ~/.config/opencode/skills | 1,011 | 94 | `~/.claude/skills/my-status/SKILL.md` |
-| 46 | tdd | ~/.agents/skills | 907 | 38 |  |
-| 47 | scaffold-exercises | ~/.agents/skills | 897 | 56 |  |
-| 48 | writing-fragments | ~/.agents/skills | 889 | 18 |  |
-| 49 | domain-modeling | ~/.agents/skills | 836 | 42 |  |
-| 50 | web-artifacts-builder | ~/.claude/skills | 771 | 78 |  |
-| 51 | to-spec | ~/.agents/skills | 760 | 39 |  |
-| 52 | my-name-pane | ~/.config/opencode/skills | 733 | 98 | `~/.claude/skills/my-name-pane/SKILL.md` |
-| 53 | prototype | ~/.agents/skills | 732 | 47 |  |
-| 54 | to-questionnaire | ~/.agents/skills | 726 | 26 |  |
-| 55 | implement-spec | ~/.agents/skills | 708 | 18 |  |
-| 56 | migrate-to-shoehorn | ~/.agents/skills | 698 | 47 |  |
-| 57 | context7-mcp | ~/.agents/skills | 681 | 70 |  |
-| 58 | my-worklog | ~/.config/opencode/skills | 644 | 64 | `~/.claude/skills/my-worklog/SKILL.md` |
-| 59 | grilling | ~/.agents/skills | 638 | 40 |  |
-| 60 | loop-me | ~/.agents/skills | 630 | 22 |  |
-| 61 | git-guardrails-claude-code | ~/.agents/skills | 578 | 68 |  |
-| 62 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
-| 63 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
-| 64 | docs | ~/.claude/skills | 312 | 254 |  |
-| 65 | handoff | ~/.agents/skills | 235 | 24 |  |
-| 66 | research | ~/.agents/skills | 208 | 62 |  |
-| 67 | implement | ~/.agents/skills | 155 | 18 |  |
-| 68 | wait-what | ~/.agents/skills | 99 | 15 |  |
-| 69 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
-| 70 | grill-me | ~/.agents/skills | 39 | 15 |  |
+| 1 | humanizer | ~/.agents/skills | 9,764 | 152 |  |
+| 2 | skill-creator | ~/.claude/skills | 9,080 | 83 |  |
+| 3 | pptx | ~/.claude/skills | 7,218 | 242 |  |
+| 4 | my-tune-claude-instructions | ~/.config/opencode/skills | 6,121 | 141 | `~/.claude/skills/my-tune-claude-instructions/SKILL.md` |
+| 5 | my-roadmap-management | ~/.config/opencode/skills | 5,550 | 122 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
+| 6 | morning | ~/.claude/skills | 4,540 | 87 |  |
+| 7 | my-de-slop | ~/.config/opencode/skills | 4,372 | 100 | `~/.claude/skills/my-de-slop/SKILL.md` |
+| 8 | asd-ste100 | ~/.agents/skills | 4,143 | 120 |  |
+| 9 | doc-coauthoring | ~/.claude/skills | 3,953 | 111 |  |
+| 10 | google-workspace | ~/.claude/skills | 3,840 | 241 |  |
+| 11 | learn | ~/.claude/skills | 3,362 | 247 |  |
+| 12 | deep-research | ~/.claude/skills | 3,283 | 146 |  |
+| 13 | my-deep-research | ~/.config/opencode/skills | 3,242 | 146 | `~/.claude/skills/my-deep-research/SKILL.md` |
+| 14 | ask-matt | ~/.agents/skills | 3,148 | 23 |  |
+| 15 | wayfinder | ~/.agents/skills | 3,102 | 52 |  |
+| 16 | impeccable | ~/.agents/skills | 2,940 | 150 |  |
+| 17 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
+| 18 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
+| 19 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
+| 20 | my-changelog-management | ~/.config/opencode/skills | 2,603 | 118 | `~/.claude/skills/my-changelog-management/SKILL.md` |
+| 21 | teach | ~/.agents/skills | 2,433 | 17 |  |
+| 22 | computer-use | ~/.claude/skills | 2,317 | 237 |  |
+| 23 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
+| 24 | xlsx | ~/.claude/skills | 2,149 | 240 |  |
+| 25 | pdf | ~/.claude/skills | 2,018 | 110 |  |
+| 26 | docx | ~/.claude/skills | 1,909 | 235 |  |
+| 27 | setup-ts-deep-modules | ~/.agents/skills | 1,886 | 52 |  |
+| 28 | setup-matt-pocock-skills | ~/.agents/skills | 1,881 | 51 |  |
+| 29 | build-awwwards-quality-sites | ~/.agents/skills | 1,804 | 131 |  |
+| 30 | code-review | ~/.agents/skills | 1,680 | 108 |  |
+| 31 | triage | ~/.agents/skills | 1,639 | 36 |  |
+| 32 | built-in-browser | ~/.claude/skills | 1,632 | 209 |  |
+| 33 | codebase-design | ~/.agents/skills | 1,611 | 70 |  |
+| 34 | improve-codebase-architecture | ~/.agents/skills | 1,507 | 39 |  |
+| 35 | writing-shape | ~/.agents/skills | 1,480 | 23 |  |
+| 36 | chrome-browser | ~/.claude/skills | 1,470 | 192 |  |
+| 37 | to-tickets | ~/.agents/skills | 1,453 | 65 |  |
+| 38 | my-md-tables | ~/.config/opencode/skills | 1,398 | 111 | `~/.claude/skills/my-md-tables/SKILL.md` |
+| 39 | my-git-squasher | ~/.config/opencode/skills | 1,386 | 51 | `~/.claude/skills/my-git-squasher/SKILL.md` |
+| 40 | find-skills | ~/.agents/skills | 1,368 | 79 |  |
+| 41 | de-slop | ~/.claude/skills | 1,348 | 138 |  |
+| 42 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
+| 43 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
+| 44 | retro | ~/.agents/skills | 1,092 | 13 |  |
+| 45 | pr | ~/.agents/skills | 1,042 | 8 |  |
+| 46 | wizard | ~/.agents/skills | 1,030 | 80 |  |
+| 47 | my-status | ~/.config/opencode/skills | 1,011 | 94 | `~/.claude/skills/my-status/SKILL.md` |
+| 48 | tdd | ~/.agents/skills | 907 | 38 |  |
+| 49 | scaffold-exercises | ~/.agents/skills | 897 | 56 |  |
+| 50 | writing-fragments | ~/.agents/skills | 889 | 18 |  |
+| 51 | domain-modeling | ~/.agents/skills | 836 | 42 |  |
+| 52 | web-artifacts-builder | ~/.claude/skills | 771 | 78 |  |
+| 53 | to-spec | ~/.agents/skills | 760 | 39 |  |
+| 54 | my-name-pane | ~/.config/opencode/skills | 733 | 98 | `~/.claude/skills/my-name-pane/SKILL.md` |
+| 55 | prototype | ~/.agents/skills | 732 | 47 |  |
+| 56 | to-questionnaire | ~/.agents/skills | 726 | 26 |  |
+| 57 | implement-spec | ~/.agents/skills | 708 | 18 |  |
+| 58 | migrate-to-shoehorn | ~/.agents/skills | 698 | 47 |  |
+| 59 | context7-mcp | ~/.agents/skills | 681 | 70 |  |
+| 60 | my-worklog | ~/.config/opencode/skills | 644 | 64 | `~/.claude/skills/my-worklog/SKILL.md` |
+| 61 | grilling | ~/.agents/skills | 638 | 40 |  |
+| 62 | loop-me | ~/.agents/skills | 630 | 22 |  |
+| 63 | git-guardrails-claude-code | ~/.agents/skills | 578 | 68 |  |
+| 64 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
+| 65 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
+| 66 | docs | ~/.claude/skills | 312 | 254 |  |
+| 67 | handoff | ~/.agents/skills | 235 | 24 |  |
+| 68 | research | ~/.agents/skills | 208 | 62 |  |
+| 69 | implement | ~/.agents/skills | 155 | 18 |  |
+| 70 | wait-what | ~/.agents/skills | 99 | 15 |  |
+| 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
+| 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 70 · **Total load:** 130,783 tok · **Catalogue (always on):** 5,945 tok
+**Skills:** 72 · **Total load:** 145,521 tok · **Catalogue (always on):** 6,217 tok
 
 ## Trigger collisions
 
