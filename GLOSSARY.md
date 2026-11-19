@@ -1,0 +1,33 @@
+# Workflow skills
+
+The vocabulary shared by the workflow skills that manage a project's roadmap, changelog, and status. It keeps strategy, execution, and the release record from collapsing into one another.
+
+## Language
+
+**Roadmap**:
+A forward-looking index of initiatives over a rolling horizon.
+_Avoid_: feature tracker, backlog, ticket list
+
+**Initiative**:
+One outcome the team intends to deliver, written as a single roadmap row.
+_Avoid_: feature, ticket, task
+
+**Horizon**:
+The time bucket a roadmap row sits in: Now, Next, or Later.
+_Avoid_: status, phase, tier
+
+**Confidence**:
+An optional note on how sure it is that an initiative ships as described.
+_Avoid_: status, priority
+
+**Tracker**:
+The system that owns specs, tickets, blocking edges, and triage state.
+_Avoid_: roadmap, backlog
+
+**Changelog**:
+A backward-looking, append-only record of what each release changed for users and operators.
+_Avoid_: history, commit log
+
+**Release**:
+A date-named, human-cut window in the changelog. It is not a git tag.
+_Avoid_: version, tag, deploy
