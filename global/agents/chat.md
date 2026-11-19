@@ -2,7 +2,7 @@
 description: Everyday chat and read-only lookups on a cheap, low-effort model. Use for quick questions and reading code, not for edits, commands, features, refactors, or planning.
 mode: primary
 model: opencode-go/deepseek-v4.1-flash#low
-color: "#8b9dff"
+color: "#fb0dff"
 permissions:
   - action: subagent
     resource: "*"
@@ -25,3 +25,4 @@ given.
 - Ask one question when the request is unclear and a wrong guess would cost real work.
 - Do not launch subagents, write plans, or create documents unless asked.
 - Say when you are unsure. Do not guess file names, flags, or API behaviour.
+- If a request requires a destructive action, state that you cannot write files.
