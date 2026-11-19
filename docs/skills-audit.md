@@ -27,16 +27,16 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 16 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
 | 17 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
 | 18 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
-| 19 | my-roadmap-management | ~/.config/opencode/skills | 2,629 | 113 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
-| 20 | my-changelog-management | ~/.config/opencode/skills | 2,454 | 119 | `~/.claude/skills/my-changelog-management/SKILL.md` |
-| 21 | teach | ~/.agents/skills | 2,433 | 17 |  |
-| 22 | computer-use | ~/.claude/skills | 2,317 | 237 |  |
-| 23 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
-| 24 | xlsx | ~/.claude/skills | 2,149 | 240 |  |
-| 25 | pdf | ~/.claude/skills | 2,018 | 110 |  |
-| 26 | docx | ~/.claude/skills | 1,909 | 235 |  |
-| 27 | setup-ts-deep-modules | ~/.agents/skills | 1,886 | 52 |  |
-| 28 | setup-matt-pocock-skills | ~/.agents/skills | 1,881 | 51 |  |
+| 19 | teach | ~/.agents/skills | 2,433 | 17 |  |
+| 20 | my-roadmap-management | ~/.config/opencode/skills | 2,421 | 88 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
+| 21 | computer-use | ~/.claude/skills | 2,317 | 237 |  |
+| 22 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
+| 23 | xlsx | ~/.claude/skills | 2,149 | 240 |  |
+| 24 | pdf | ~/.claude/skills | 2,018 | 110 |  |
+| 25 | docx | ~/.claude/skills | 1,909 | 235 |  |
+| 26 | setup-ts-deep-modules | ~/.agents/skills | 1,886 | 52 |  |
+| 27 | setup-matt-pocock-skills | ~/.agents/skills | 1,881 | 51 |  |
+| 28 | my-changelog-management | ~/.config/opencode/skills | 1,878 | 73 | `~/.claude/skills/my-changelog-management/SKILL.md` |
 | 29 | build-awwwards-quality-sites | ~/.agents/skills | 1,804 | 131 |  |
 | 30 | code-review | ~/.agents/skills | 1,680 | 108 |  |
 | 31 | triage | ~/.agents/skills | 1,639 | 36 |  |
@@ -52,10 +52,10 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 41 | de-slop | ~/.claude/skills | 1,348 | 138 |  |
 | 42 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
 | 43 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
-| 44 | my-status | ~/.config/opencode/skills | 1,127 | 98 | `~/.claude/skills/my-status/SKILL.md` |
-| 45 | retro | ~/.agents/skills | 1,092 | 13 |  |
-| 46 | pr | ~/.agents/skills | 1,042 | 8 |  |
-| 47 | wizard | ~/.agents/skills | 1,030 | 80 |  |
+| 44 | retro | ~/.agents/skills | 1,092 | 13 |  |
+| 45 | pr | ~/.agents/skills | 1,042 | 8 |  |
+| 46 | wizard | ~/.agents/skills | 1,030 | 80 |  |
+| 47 | my-status | ~/.config/opencode/skills | 993 | 56 | `~/.claude/skills/my-status/SKILL.md` |
 | 48 | tdd | ~/.agents/skills | 907 | 38 |  |
 | 49 | scaffold-exercises | ~/.agents/skills | 897 | 56 |  |
 | 50 | writing-fragments | ~/.agents/skills | 889 | 18 |  |
@@ -68,9 +68,9 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 57 | implement-spec | ~/.agents/skills | 708 | 18 |  |
 | 58 | migrate-to-shoehorn | ~/.agents/skills | 698 | 47 |  |
 | 59 | context7-mcp | ~/.agents/skills | 681 | 70 |  |
-| 60 | my-worklog | ~/.config/opencode/skills | 644 | 64 | `~/.claude/skills/my-worklog/SKILL.md` |
-| 61 | grilling | ~/.agents/skills | 638 | 40 |  |
-| 62 | loop-me | ~/.agents/skills | 630 | 22 |  |
+| 60 | grilling | ~/.agents/skills | 638 | 40 |  |
+| 61 | loop-me | ~/.agents/skills | 630 | 22 |  |
+| 62 | my-worklog | ~/.config/opencode/skills | 595 | 52 | `~/.claude/skills/my-worklog/SKILL.md` |
 | 63 | git-guardrails-claude-code | ~/.agents/skills | 578 | 68 |  |
 | 64 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
 | 65 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
@@ -82,7 +82,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
 | 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 72 · **Total load:** 142,567 tok · **Catalogue (always on):** 6,213 tok
+**Skills:** 72 · **Total load:** 141,600 tok · **Catalogue (always on):** 6,088 tok
 
 ## Trigger collisions
 
