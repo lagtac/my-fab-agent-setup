@@ -1,13 +1,15 @@
 # Workflow skills
 
-Four skills answer four questions about a project's files. You ask in plain words, and the agent picks the skill. Say the skill's name when you want it directly. A fifth skill, `my-name-pane`, labels the tmux pane after the row you picked and owns no file.
+Four skills answer four questions about a project's files. You ask in plain words, and the agent picks the skill. Say the skill's name when you want it directly.
+
+A fifth skill, `my-name-pane`, labels the tmux pane after the work the session took on: a roadmap row, a spec, or the session goal. It owns no file.
 
 The terms *initiative*, *horizon*, and *release* are defined in [GLOSSARY.md](../GLOSSARY.md).
 
 | You ask | Skill | File it owns |
 |---|---|---|
 | Where are we? What is next? What is blocked? | `my-status` | `STATUS.md`, a view over the tracker |
-| Log the day, or read it back | `my-worklog` | `WORKLOG.md` |
+| Log the day, read it back, or find a decision | `my-worklog` | `WORKLOG.md` |
 | Update the roadmap, add or move an initiative | `my-roadmap-management` | `ROADMAP.md` |
 | Add a changelog entry, cut a release | `my-changelog-management` | `CHANGELOG.md` |
 
@@ -26,7 +28,7 @@ A fact lives in one place. The roadmap and changelog link to the tracker; they d
 1. **Start with "what is next".** `my-status` prints the `Next` section from the tracker, each item with a link. When `Next` is empty, it lists the open, unblocked items. You pick the work.
 2. **Mark the item started.** The tracker records the claim; the status view reflects it. For a roadmap initiative, the row is already under `Now`, or you move it there.
 3. **Work.** Mid-flight changes go to the tracker: a reframe, a split, a new spec. The roadmap row changes only when the initiative itself changes.
-4. **Ship.** The change lands on main. If it completes a roadmap initiative, remove the row and cut a release. The changelog records what users and operators get.
+4. **Ship.** The change lands on main. If it completes a roadmap initiative, remove the row and suggest a release. The changelog records what users and operators get.
 5. **End with "log the day".** `my-worklog` appends today's heading and the session's bullets. A `Decision:` line records a choice and its reason. A `Handoff:` line names what the next session should pick up.
 6. **Next morning**, "where are we" shows the status view, its age, and what waits on what. The worklog holds yesterday's reasoning.
 
@@ -36,7 +38,7 @@ The day is a loop. "Next morning" returns to the first step.
 flowchart LR
     A["1 what is next"] --> B["2 start<br/>tracker claim"]
     B --> C["3 work"]
-    C --> D["4 ship<br/>initiative row rolls off; cut a release"]
+    C --> D["4 ship<br/>row rolls off; release suggested"]
     D --> E["5 log the day"]
     E -->|next morning| A
 ```
@@ -66,7 +68,7 @@ stateDiagram-v2
     W --> [*]: shipped, row removed
 ```
 
-A row enters after you agree to the initiative. The horizon is the schedule; there is no promotion ceremony. When the initiative ships, the row leaves and the changelog records the release.
+A row enters after you agree to the initiative. The horizon is the schedule; there is no promotion ceremony. When the initiative ships, the row leaves. The changelog records the release when one is cut.
 
 ### Tracker item
 
@@ -87,7 +89,7 @@ The tracker owns this lifecycle. `my-status` renders it; it does not change it.
 - A refactor, test, lint pass, or internal doc note → the worklog.
 - A user-visible fix, a changed default, or a deploy change such as an env var or port → the changelog.
 - A removed feature → the changelog `### Removed` entry.
-- A whole initiative → a roadmap row linking its spec, plus a changelog release when it ships.
+- A whole initiative → a roadmap row linking its spec, plus a changelog entry when it ships.
 - A decision → the worklog `Decision:` line, with a link to the doc that argues it.
 - A blocked item → the tracker's `Blocked by` line, reflected under `Blocked` in the status view.
 - A started or finished item → the tracker, reflected under `Active` or removed from the view.
@@ -97,7 +99,7 @@ The tracker owns this lifecycle. `my-status` renders it; it does not change it.
 Nothing to install; the skills are global. They work in any repo, with a local-markdown tracker or GitHub issues.
 
 1. **Run "where are we" in the project.** When no status file exists, the agent answers from the tracker and offers to create `STATUS.md`. Accept, or ask for the first edit.
-2. **Log the first day.** "Log the day" creates `WORKLOG.md` with today's heading.
+2. **Log the first day.** "Log the day" writes today's heading and the session's bullets.
 3. **Keep the defaults or declare your own.** Put the paths in `AGENTS.md` or `CLAUDE.md` when they differ:
 
    ```markdown
