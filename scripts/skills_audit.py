@@ -28,10 +28,11 @@ DEFAULT_ROOTS = [
 DEFAULT_OUT = Path(__file__).resolve().parent.parent / "docs" / "skills-audit.md"
 
 FRONTMATTER = re.compile(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|\Z)", re.DOTALL)
+QUOTED = re.compile(r'"([^"]+)"|\u201c([^\u201d]+)\u201d')
 BYTES_PER_TOKEN = 4
 
-# Function words only. A tuning change here is a decision, recorded in
-# docs/specs/skills-audit.md, not a drift.
+# Function words only. A tuning change here is a decision: it moves every
+# score, so make it deliberately, not as drift.
 STOPWORDS = frozenset(
     """a an and are as at be been but by can could do does did for from had has
     have how if in into is it its may might must of on or our so than that the
@@ -247,6 +248,37 @@ def similarity(left: Skill, right: Skill) -> float:
     return len(left_tokens & right_tokens) / len(union)
 
 
+def triggers(description: str) -> set[str]:
+    """Quoted phrases in a description, normalised: each one is a stated trigger."""
+    phrases = [straight or curly for straight, curly in QUOTED.findall(description)]
+    return {
+        re.sub(r"\s+", " ", phrase.strip().rstrip("\\")).lower()
+        for phrase in phrases
+        if phrase.strip()
+    }
+
+
+def trigger_collisions(skills: list[Skill]) -> list[tuple[str, Skill, Skill]]:
+    """Pairs where a trigger names another skill or repeats its trigger.
+
+    This catches what a Jaccard score cannot. One decisive trigger word among
+    twenty unrelated ones scores near zero, yet it sends the same request to
+    two skills.
+    """
+    phrases = {skill.name: triggers(skill.description) for skill in skills}
+    found: dict[tuple[str, str, str], tuple[str, Skill, Skill]] = {}
+    for skill in skills:
+        for phrase in phrases[skill.name]:
+            for other in skills:
+                if other is skill:
+                    continue
+                if phrase != other.name.lower() and phrase not in phrases[other.name]:
+                    continue
+                first, second = sorted((skill, other), key=lambda item: item.name)
+                found[(phrase, first.name, second.name)] = (phrase, first, second)
+    return [found[key] for key in sorted(found)]
+
+
 def overlaps(skills: list[Skill], threshold: float) -> list[tuple[float, Skill, Skill]]:
     """Every pair at or above the threshold, by score then name."""
     pairs = []
@@ -288,6 +320,10 @@ def problem_lines(
     lines = [
         f"collision: {first.name} / {second.name} ({score:.2f})"
         for score, first, second in overlaps(skills, threshold)
+    ]
+    lines += [
+        f'trigger: {first.name} / {second.name} ("{phrase}")'
+        for phrase, first, second in trigger_collisions(skills)
     ]
     for skill in sorted(skills, key=lambda skill: skill.name):
         for path in skill.shadowed:
@@ -347,6 +383,27 @@ def render(skills: list[Skill], roots: list[Path], threshold: float) -> str:
         ]
         for score, first, second in pairs:
             lines.append(f"| {score:.2f} | {cell(first.name)} | {cell(second.name)} |")
+        lines.append("")
+
+    lines += [
+        "### Named triggers",
+        "",
+        "A quoted phrase in a description is a stated trigger. Each row below holds",
+        "one that is another skill's name, or repeats another skill's trigger.",
+        "",
+    ]
+    named = trigger_collisions(skills)
+    if not named:
+        lines += ["No trigger names another skill.", ""]
+    else:
+        lines += [
+            "| Trigger | Skill A | Skill B |",
+            "|---|---|---|",
+        ]
+        for phrase, first, second in named:
+            lines.append(
+                f"| {cell(phrase)} | {cell(first.name)} | {cell(second.name)} |"
+            )
         lines.append("")
     return "\n".join(lines)
 

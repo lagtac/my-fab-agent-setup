@@ -434,5 +434,127 @@ class DeclaredAdvertisedTest(unittest.TestCase):
             )
 
 
+class NamedTriggerTest(unittest.TestCase):
+    """A trigger word can send one request to two skills without a high Jaccard score."""
+
+    HANDOFF = "Compacts the conversation into a handoff document."
+    BARE = 'Logs the work day. Trigger on "log the day" and "handoff".'
+    QUALIFIED = 'Logs the work day. Trigger on "log the day" and "log a handoff".'
+
+    def fixture(self, work: Path, skills) -> Path:
+        root = work / "root"
+        root.mkdir(parents=True, exist_ok=True)
+        for name, description, *rest in skills:
+            write_skill(
+                root,
+                name,
+                description,
+                extra_frontmatter=rest[0] if rest else "",
+            )
+        return root
+
+    def test_trigger_naming_a_hidden_skill_is_the_only_problem(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.fixture(
+                Path(temporary),
+                (
+                    ("handoff", self.HANDOFF, "disable-model-invocation: true"),
+                    ("worklog", self.BARE),
+                ),
+            )
+
+            result = run_audit("--root", str(root), "--check")
+
+            self.assertEqual(result.returncode, 1, result.stderr)
+            self.assertEqual(
+                result.stderr.splitlines(),
+                ['trigger: handoff / worklog ("handoff")'],
+            )
+
+    def test_report_names_the_trigger_word(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            root = self.fixture(
+                work, (("handoff", self.HANDOFF), ("worklog", self.BARE))
+            )
+            report = work / "report.md"
+
+            result = run_audit("--root", str(root), "--out", str(report))
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            text = report.read_text(encoding="utf-8")
+            self.assertIn("### Named triggers", text)
+            self.assertIn("| handoff | handoff | worklog |", text)
+
+    def test_qualified_trigger_is_not_a_collision(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            work = Path(temporary)
+            root = self.fixture(
+                work, (("handoff", self.HANDOFF), ("worklog", self.QUALIFIED))
+            )
+            report = work / "report.md"
+
+            check = run_audit("--root", str(root), "--check")
+            result = run_audit("--root", str(root), "--out", str(report))
+
+            self.assertEqual(check.returncode, 0, check.stderr)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn(
+                "No trigger names another skill.",
+                report.read_text(encoding="utf-8"),
+            )
+
+    def test_trigger_repeated_by_two_skills_is_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.fixture(
+                Path(temporary),
+                (
+                    ("alpha", 'Drafts "release notes" for maintainers.'),
+                    ("beta", 'Writes "release notes" for users.'),
+                ),
+            )
+
+            result = run_audit("--root", str(root), "--check")
+
+            self.assertEqual(result.returncode, 1, result.stderr)
+            self.assertEqual(
+                result.stderr.splitlines(),
+                ['trigger: alpha / beta ("release notes")'],
+            )
+
+    def test_curly_quoted_trigger_is_read(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.fixture(
+                Path(temporary),
+                (
+                    ("handoff", self.HANDOFF),
+                    ("worklog", "Appends the day. Trigger on \u201chandoff\u201d."),
+                ),
+            )
+
+            result = run_audit("--root", str(root), "--check")
+
+            self.assertEqual(
+                result.stderr.splitlines(),
+                ['trigger: handoff / worklog ("handoff")'],
+            )
+
+    def test_a_skill_may_quote_its_own_name(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = self.fixture(
+                Path(temporary),
+                (
+                    (
+                        "status",
+                        'Shows STATUS.md. Trigger on "status" and "where are we".',
+                    ),
+                ),
+            )
+
+            result = run_audit("--root", str(root), "--check")
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()
