@@ -38,6 +38,8 @@ Resolve the project's conventions in this order, and let a stated convention win
 
 Then open the file and find the current `## [Unreleased]` block, or its equivalent. Keep the existing subsection names and date form. When the project has no changelog and the user wants one, offer a Keep a Changelog header. Add it once they accept.
 
+Every lifecycle file opens with a front-matter block naming the skill that owns it. When you create `CHANGELOG.md`, put `skill: my-changelog-management` in that block above the title, and list the file under the `project lifecycle` heading in `AGENTS.md`.
+
 Done when you know the file path and the block you will edit.
 
 ### 3. Write the entry
@@ -50,6 +52,7 @@ Group bullets under `### Added`, `### Changed`, `### Fixed`, `### Removed`, and 
 
 ```markdown
 ### Fixed
+
 - Upload form now shows an inline message when Firefox 149 on Wayland sends an empty `DataTransfer`. See [the plan](<path to the plan>).
 ```
 

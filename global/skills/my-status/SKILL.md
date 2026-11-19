@@ -58,7 +58,7 @@ Done when the tracker holds every change, the view is rendered after it, and eve
 
 ## 4. Create the file
 
-When the project has none, create it on the first **edit** request. Use the shape below, and render it from the tracker.
+When the project has none, create it on the first **edit** request. Use the shape below, and render it from the tracker. The front-matter names the skill that owns the file, so write it on create and keep it on every edit. When you create `STATUS.md`, also list it under the `project lifecycle` heading in `AGENTS.md`.
 
 A question gets an answer from the tracker plus an offer to create the file. Outside a repo, say "no project here" and stop.
 
@@ -67,6 +67,10 @@ Done when the file exists at the resolved path with all four sections rendered f
 ## The shape
 
 ```markdown
+---
+skill: my-status
+---
+
 # Status
 
 Updated: YYYY-MM-DD

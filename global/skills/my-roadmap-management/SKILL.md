@@ -32,9 +32,13 @@ Ask when a file might be the roadmap and nothing confirms it.
 
 An existing roadmap may use a different shape: a feature-status machine (💭 📋 🚧 ✅), a done-log, or a flat checklist. In a project you do not control, follow it as-is. In your own projects, stop and report the mismatch. The user decides whether to keep it or migrate it.
 
-When the project has no roadmap, create `ROADMAP.md` on the first **edit** request. Use this shape: a one-line intro, the horizon headings, and the row. A question gets an answer and an offer to create it.
+When the project has no roadmap, create `ROADMAP.md` on the first **edit** request. Use this shape: the front-matter, a one-line intro, the horizon headings, and the row. A question gets an answer and an offer to create it.
 
 ```markdown
+---
+skill: my-roadmap-management
+---
+
 # Roadmap
 
 What we are investing in over the next while.
@@ -47,6 +51,8 @@ What we are investing in over the next while.
 
 ## Later
 ```
+
+The front-matter names the skill that owns the file. Write it on create and keep it on every edit. Every lifecycle file carries the same block: `ROADMAP.md`, `STATUS.md`, `WORKLOG.md`, and `CHANGELOG.md`. When you create `ROADMAP.md`, also list it under the `project lifecycle` heading in `AGENTS.md`.
 
 ## Files
 
@@ -68,18 +74,18 @@ Default: `Now` · `Next` · `Later`. A row sits in exactly one. Match a project'
 
 Look up the situation, then jump to the rule.
 
-| Situation | Edit | Rule |
-|---|---|---|
-| User agrees to a new initiative | Add a row under a horizon; link the spec if one exists | 3 |
-| Priority shifts | Move the row between horizons | 4 |
-| Spec written for a queued row | Add the spec link | 5 |
-| The initiative's work landed on main | Remove the row; suggest cutting a release | 6 |
-| Scope or framing changed | Edit the row in place | 7 |
-| One initiative splits into separate outcomes | Split into rows | 7 |
-| An idea is dropped before work starts | Delete the row | 7 |
-| One ticket blocks another | Nothing — the tracker owns it | 8 |
-| Refactor, test, lint, or internal docs | Neither file | `my-changelog-management` rule 2 |
-| A user-visible change with no initiative | Changelog only | `my-changelog-management` |
+| Situation                                    | Edit                                                   | Rule                             |
+| -------------------------------------------- | ------------------------------------------------------ | -------------------------------- |
+| User agrees to a new initiative              | Add a row under a horizon; link the spec if one exists | 3                                |
+| Priority shifts                              | Move the row between horizons                          | 4                                |
+| Spec written for a queued row                | Add the spec link                                      | 5                                |
+| The initiative's work landed on main         | Remove the row; suggest cutting a release              | 6                                |
+| Scope or framing changed                     | Edit the row in place                                  | 7                                |
+| One initiative splits into separate outcomes | Split into rows                                        | 7                                |
+| An idea is dropped before work starts        | Delete the row                                         | 7                                |
+| One ticket blocks another                    | Nothing — the tracker owns it                          | 8                                |
+| Refactor, test, lint, or internal docs       | Neither file                                           | `my-changelog-management` rule 2 |
+| A user-visible change with no initiative     | Changelog only                                         | `my-changelog-management`        |
 
 If a request fits no row, ask the user. A speculative roadmap row is noise.
 

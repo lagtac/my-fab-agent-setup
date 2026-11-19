@@ -21,6 +21,10 @@ Resolve the path in this order:
 Shape:
 
 ```markdown
+---
+skill: my-worklog
+---
+
 # Worklog
 
 ## 2026-11-19
@@ -57,6 +61,6 @@ Done when every match is listed with the day it belongs to.
 
 ## 4. Create the file
 
-When the project has none, create it on the first **edit** request, using the shape above. A read request gets one line saying the project has no worklog yet, plus an offer to create the file. Outside a repo, say "no project here" and stop.
+When the project has none, create it on the first **edit** request, using the shape above. The front-matter names the skill that owns the file, so write it on create and keep it on every edit. When you create `WORKLOG.md`, also list it under the `project lifecycle` heading in `AGENTS.md`. A read request gets one line saying the project has no worklog yet, plus an offer to create the file. Outside a repo, say "no project here" and stop.
 
 Done when the file exists at the resolved path under a `# Worklog` title, with today's heading and the session's bullets.
