@@ -36,8 +36,7 @@ When the project has no roadmap, create `ROADMAP.md` on the first **edit** reque
 
 - `ROADMAP.md` — project root by default, or the file `AGENTS.md` or `CLAUDE.md` names (for example `docs/frontend-roadmap.md`). Everywhere below, `ROADMAP.md` means that file. Living index of features. Owned by this skill.
 - The row's spec and plan — held by the project's tracker. A local-markdown tracker keeps them at `.scratch/<slug>/spec.md` and `.scratch/<slug>/issues/NN-<slug>.md`. A GitHub-issue tracker keeps them in issues, listed with `gh issue list`. Use the links a row already carries. Ask when neither the row nor the tracker names one.
-- `CHANGELOG.md` — project root. Touched only via `my-changelog-management` (delegated at rule 6).
-- dev-report folder — `docs/dev-reports/` by default, used only when a dev report is written. Internal work (refactors / tests / lint / internal docs) gets no roadmap or changelog edit: `my-changelog-management` rule 2.
+- `CHANGELOG.md` — project root. Touched only via `my-changelog-management` (delegated at rule 6). Internal work (refactors, tests, lint, internal docs) gets no roadmap or changelog edit. It goes in the worklog, under `my-worklog` and `my-changelog-management` rule 2.
 
 ## Status legend
 
@@ -179,7 +178,7 @@ Skip broad audits (stale-💭 sweeps, orphan-row scans). Run those only when the
 
 ### 11. Row-body content discipline — index, not archive
 
-A roadmap row is an **index entry**, not the record of the work. The linked spec / plan / experiment-log / briefing is the source of truth; the row points at it. The same fact must not be maintained in both places — when the linked doc is later corrected, a duplicated row silently goes stale and ends up contradicting its own link.
+A roadmap row is an **index entry**, not the record of the work. The linked spec / plan / experiment-log / worklog is the source of truth; the row points at it. The same fact must not be maintained in both places — when the linked doc is later corrected, a duplicated row silently goes stale and ends up contradicting its own link.
 
 Keep in the row body, in this order, so that a reader who opens the roadmap cold knows what the row is without opening a link. Target: one sentence each for the first three parts, then the verdict and the pointer as short fragments (≤ ~5 lines in all):
 
