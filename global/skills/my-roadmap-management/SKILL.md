@@ -1,225 +1,198 @@
 ---
 name: my-roadmap-management
 description: >
-  Use when updating ROADMAP.md — adding a feature, promoting between status
-  tiers (💭 → 📋 → 🚧 → ✅), splitting or reframing a row, or marking
-  something shipped. Trigger on phrases like "update the roadmap", "mark X
-  as shipped", "X is done", "move X to in progress", "we just merged Y", or
-  whenever a feature transitions lifecycle stages. Owns the roadmap;
-  delegates the CHANGELOG half of a 🚧 → ✅ promotion to the
-  `my-changelog-management` skill.
+  Use when updating ROADMAP.md — adding an initiative, moving it between the
+  Now/Next/Later horizons, or recording that an initiative shipped. Trigger on
+  "update the roadmap", "add to the roadmap", "move X to next", "X shipped",
+  "we finished X", and "what are we investing in". Owns the roadmap as a
+  forward-looking index of initiatives. The tracker owns specs, tickets, and
+  execution state; the changelog owns the release record.
 ---
 
 # Roadmap Management
 
-A roadmap is **forward-looking** — what's next, in flight, or shipped recently. It is an index of the feature lifecycle: rows grouped by area, each one a tier, a spec or plan link, and a short body. It does not answer where the project is now, what happened on a given day, or what is queued. The status file, the worklog, and the tracker own those.
+A roadmap answers one question: what are we investing in over the next while? It is a forward-looking index of **initiatives** over a rolling **horizon**. It is not a work tracker.
 
-A CHANGELOG is **backward-looking** — what reached `main` and changed contract or behaviour. They couple at one moment: the integration (squash-merge by default) that promotes a row from 🚧 to ✅. At that moment both files update in the same commit (rule 6).
+Three artifacts split the job:
 
-This skill owns the roadmap. The companion `my-changelog-management` skill owns the CHANGELOG. When a 🚧 → ✅ promotion happens, this skill drives the commit and delegates the CHANGELOG half to `my-changelog-management`.
+- **Roadmap** — the investment decision. One row per initiative, ordered by horizon.
+- **Tracker** — execution. Specs, tickets, blocking edges, and triage state.
+- **Changelog** — the release record. What each release changed for users.
+
+A roadmap row links its spec, or the tracker epic that holds it. It does not copy ticket state, and it never becomes a done-list.
 
 ## Adapting to the project
 
-This skill works for any software project. The paths, git workflow, and legend below are **defaults**, not law. Resolve a project's real setup in this order:
+The paths and horizon names below are defaults. Resolve a project's real setup in this order:
 
-1. **Read `AGENTS.md` or `CLAUDE.md`.** It declares the roadmap path, the tracker kind, and the git workflow: worktrees or not, the main/release branch name, and squash versus PR versus direct merge. Honour it over every default in this skill, including the commit rules. A project may keep more than one roadmap, so edit the one it names for this kind of change. Ask when it names none.
-2. **Reuse a roadmap the project already keeps under another name.** A file that already holds this project's feature index is the roadmap. Never create a second one.
-3. **Fall back to the defaults** in this skill: `ROADMAP.md` at the project root, the legend below, and the git workflow and tracker kind you find in the repo.
+1. **Read `AGENTS.md` or `CLAUDE.md`.** It may declare the roadmap path, the tracker kind, and the git workflow. Its word wins over every default here, including the commit rules.
+2. **Reuse a roadmap the project already keeps under another name.** A file that already holds the project's forward index is the roadmap. Never create a second one.
+3. **Fall back to `ROADMAP.md`** at the project root, with the horizons below.
 
-Ask when a file might be the roadmap but nothing confirms it. Never guess a convention into existence.
+Ask when a file might be the roadmap and nothing confirms it.
 
-When an existing roadmap uses a different shape, such as a flat checklist or a done-log: in a project you do not control, follow it as-is. In your own projects, stop and report the mismatch. The user decides whether to edit it as-is or migrate it separately. Ask when you cannot tell which case applies.
+An existing roadmap may use a different shape: a feature-status machine (💭 📋 🚧 ✅), a done-log, or a flat checklist. In a project you do not control, follow it as-is. In your own projects, stop and report the mismatch. The user decides whether to keep it or migrate it.
 
-When the project has no roadmap, create `ROADMAP.md` on the first **edit** request: the legend below, a one-line intro, and the row. A question about the roadmap gets an answer and an offer to create it.
+When the project has no roadmap, create `ROADMAP.md` on the first **edit** request. Use this shape: a one-line intro, the horizon headings, and the row. A question gets an answer and an offer to create it.
+
+```markdown
+# Roadmap
+
+What we are investing in over the next while.
+
+## Now
+
+- **<Initiative>** — <one sentence: what changes for the user>. [spec](<path to the spec>)
+
+## Next
+
+## Later
+```
 
 ## Files
 
-- `ROADMAP.md` — project root by default, or the file `AGENTS.md` or `CLAUDE.md` names (for example `docs/frontend-roadmap.md`). Everywhere below, `ROADMAP.md` means that file. Living index of features. Owned by this skill.
-- The row's spec and plan — held by the project's tracker. A local-markdown tracker keeps them at `.scratch/<slug>/spec.md` and `.scratch/<slug>/issues/NN-<slug>.md`. A GitHub-issue tracker keeps them in issues, listed with `gh issue list`. Use the links a row already carries. Ask when neither the row nor the tracker names one.
-- `CHANGELOG.md` — project root. Touched only via `my-changelog-management` (delegated at rule 6). Internal work (refactors, tests, lint, internal docs) gets no roadmap or changelog edit. It goes in the worklog, under `my-worklog` and `my-changelog-management` rule 2.
+- `ROADMAP.md` — project root by default, or the path `AGENTS.md` or `CLAUDE.md` names. Everywhere below, `ROADMAP.md` means that file.
+- The row's spec — held by the project's tracker. A local-markdown tracker keeps it at `.scratch/<slug>/spec.md`. A GitHub-issue tracker keeps it in an issue. Use the link a row already carries, and ask when neither the row nor the tracker names one.
+- `CHANGELOG.md` — owned by `my-changelog-management`. This skill only suggests a release cut; it never edits that file.
 
-## Status legend
+## Horizons
 
-Default — match a project's own legend if its `ROADMAP.md` already uses one:
+Default: `Now` · `Next` · `Later`. A row sits in exactly one. Match a project's own horizon names when its roadmap already uses them, such as "This quarter / Next quarter / Later".
 
-`✅ shipped` · `🚧 in progress` · `📋 planned` · `💭 discussed, not scheduled`
+- **Now** — the team is actively investing. Being worked, or next in line.
+- **Next** — agreed and queued. Not started.
+- **Later** — worth doing, not scheduled.
+
+**Confidence** is an optional annotation, not a horizon. Add `[confidence: low]` (or `medium`, `high`) only when a row's commitment is genuinely uncertain, usually in `Later`. Omit it when it adds nothing.
 
 ## Decision table
 
-Look up the situation, then jump to the rule. Bold rows are the easy ones to get wrong.
+Look up the situation, then jump to the rule.
 
-| Situation | Files touched | Rule |
+| Situation | Edit | Rule |
 |---|---|---|
-| Idea raised but user hasn't agreed yet | None — wait | — |
-| User agreed to add an idea | ROADMAP only — new row, status `💭`, no link | 3 |
-| Spec landed | ROADMAP only — `💭 → 📋`, link spec | 4 |
-| Plan landed + work started | ROADMAP only — `📋 → 🚧`, link plan | 5 |
-| **Integration to the main/release branch just landed** (squash, PR, or direct merge) | **ROADMAP + CHANGELOG in the same commit** — `🚧 → ✅` and add changelog entry | 6 |
-| Scope or framing changed mid-flight | ROADMAP only — edit row in place, note pivot | 7 |
-| One row growing into multiple sub-tasks | ROADMAP only — suffixed numbering (`1`, `1b`, `1c`) | 7 |
-| **One row blocks another** | ROADMAP only — express as order, never as a graph | 12 |
-| Speculative `💭` / `📋` row now off-table | ROADMAP only — delete row | 7 |
-| Already-shipped feature later removed from `main` | The ✅ row **stays**; CHANGELOG gets the `### Removed` entry | 7 + `my-changelog-management` |
-| **Any CHANGELOG-only edit** (deploy change, hotfix, removal, behaviour change with no roadmap row) | CHANGELOG only — use **`my-changelog-management`** | `my-changelog-management` |
-| **Refactor, test, lint, formatting, internal-only docs** | **Neither** — see `my-changelog-management` rule 2 | `my-changelog-management` rule 2 |
-| Plan file renamed or moved | Both files where the path is linked | 8 |
+| User agrees to a new initiative | Add a row under a horizon; link the spec if one exists | 3 |
+| Priority shifts | Move the row between horizons | 4 |
+| Spec written for a queued row | Add the spec link | 5 |
+| The initiative's work landed on main | Remove the row; suggest cutting a release | 6 |
+| Scope or framing changed | Edit the row in place | 7 |
+| One initiative splits into separate outcomes | Split into rows | 7 |
+| An idea is dropped before work starts | Delete the row | 7 |
+| One ticket blocks another | Nothing — the tracker owns it | 8 |
+| Refactor, test, lint, or internal docs | Neither file | `my-changelog-management` rule 2 |
+| A user-visible change with no initiative | Changelog only | `my-changelog-management` |
 
-If a request fits no row, ask the user — premature roadmap entries and speculative changelog lines are noise.
+If a request fits no row, ask the user. A speculative roadmap row is noise.
 
 ## Rules
 
-The rules are sequential and keyed by the decision table above.
+### 1. Read the roadmap before editing
 
-### 1. Read ROADMAP.md before editing it
+Open `ROADMAP.md` and find the horizon section the row belongs to. Check the open rows against rule 9's row order. If some rows do not follow it, ask once, before the requested edit: "N open rows do not follow the row order, so they are hard to read cold. Rewrite them now, in a separate commit?" Ask at most once per session.
 
-Open `ROADMAP.md` and find the area section the row belongs to (the `##` sections the file already has) plus the row's existing numbering context. Don't open `CHANGELOG.md` from this skill — if the edit pairs with a CHANGELOG entry (rule 6), `my-changelog-management` owns that file.
+- **On yes:** rewrite every open row to rule 9's order, in one commit of its own, before the requested edit. Read a row's linked spec when the row alone does not say the outcome. Keep every number.
+- **On no:** do the requested edit only. Trim each row you touch to rule 9's order.
 
-**Old rows.** While you read, check the open rows (💭, 📋, 🚧). If some of them do not follow rule 11's order — most often, the body does not open with the kind of work, such as `bug in …` or `feature in …` — ask the user once, before the requested edit: "N open rows do not follow the row order, so they are hard to read cold. Rewrite them now, in a separate commit?" Ask at most once per session.
+### 2. Identify the change
 
-- **On yes:** rewrite every open row to rule 11's order, in one commit of its own (`docs: rewrite ROADMAP rows in the row order`), before the requested edit. Read a row's linked document when the row alone does not say its kind or what the user sees. Never drop a fact that no linked document holds (rule 11). Keep every number. Change a title only when it names an internal step and not what changes for the user, and then update every reference to it. ✅ rows stay as they are: they are records.
-- **On no:** do the requested edit only. The trim trigger in rule 11 still moves each row you touch.
+Look up the user's request in the decision table and jump to the rule it points to. The table is the source of truth for which file to touch.
 
-### 2. Identify the lifecycle transition
+### 3. Add an initiative
 
-Look up the user's request in the decision table above and jump to the rule it points to. The table is the source of truth for which files to touch — don't edit anything until the situation matches a row.
+A row goes in only after the user has agreed to the initiative in conversation. Casual mentions and brainstorm tangents do not earn a row.
 
-### 3. New row — idea → 💭
+- Choose the horizon. Default to `Next` unless the user says otherwise.
+- Number the row only when the roadmap already numbers rows. Never reuse a number.
+- Write the title in outcome language: what changes for the user, not the name of an internal step.
+- Write one sentence of what the user gets.
+- Link the spec if it exists. A row without a spec says `no spec yet`; the spec is the next step, not a precondition for the row.
+- Add `[confidence: low]` only when the commitment is genuinely uncertain.
 
-A new row goes in only **after** the user has agreed to the idea in conversation. Casual mentions and brainstorm tangents do not earn a row.
-
-- Pick the area section that fits (or propose a new `## Section` if none does — confirm with the user).
-- Choose the next free number, in the scheme the roadmap already uses: per table, the section's next `#`; with one sequence for the whole file, the next number the roadmap names (raise it by one in the same edit), or else the highest number in the file plus one. Use a suffix form like `1b`, `1c` when the row clearly extends a previous one. Never change or reuse a number, also when a row ships or is deleted.
-- In a bullet roadmap, the number goes between the icon and the title: `- 💭 12 **<Short Name>** — …`. Tools that read the roadmap find it there.
-- Status: `💭`. Spec/plan column: `—`. No link required at this stage.
-- Title format: `**<Short Name>** — <body>`. The short name says what changes, in the words a user of the tool would use, not the name of an internal step. The body follows the order in rule 11.
-
-### 4. Promote 💭 → 📋 — spec landed
-
-Verify that the row's spec exists (see "Files"). If it doesn't, refuse the promotion — `📋` means "spec is written," not "we plan to write a spec."
-
-- Update the status cell to `📋`.
-- Add a markdown link to the spec in the Spec / Plan column: `[spec](<path to the spec>)`.
-- In a project that routes its work, replace `route not set` with the route that was picked (rule 11).
-- If the row body needs to grow (e.g., the spec materially reframed the feature), edit the short name and the row body to match — never leave the row contradicting its linked spec.
-
-### 5. Promote 📋 → 🚧 — plan written and work started
-
-Two preconditions, both required:
-
-- The row's plan exists (see "Files").
-- Implementation has actually started in an isolated workspace appropriate to the project's git workflow. If the project uses worktrees (see its `AGENTS.md` or `CLAUDE.md`), a worktree exists; if it uses branches, the feature branch exists; if it legitimately works on the main branch, "started" is enough. The point is real work underway — not a worktree per se. Don't withhold 🚧 in a project that doesn't use worktrees.
-
-Then:
-
-- Status → `🚧`.
-- Spec / Plan column → `[spec](...), [plan](...)`. Keep both links if both exist.
-- Do **not** touch the CHANGELOG yet. In-progress work has not changed any contract.
-
-### 6. Promote 🚧 → ✅ — integrated to the main/release branch (couples with CHANGELOG)
-
-This is the only transition that touches both files. **Both edits go in the same commit.**
-
-Preconditions:
-
-- The integration to the project's main/release branch has already happened — squash-merge, PR merge, or direct, whatever the project uses (verify with `git log` on that branch if uncertain — do not pre-emptively mark ✅ before it lands).
-- The plan/spec links in the Spec / Plan column still resolve.
-
-Roadmap edit:
-
-- Status → `✅`.
-- In a project that routes its work, a row that still says `route not set` gets its route here: a change whose route writes no spec skips the 📋 edit that would have set it (rule 11).
-- Update the row body if the implementation diverged from the plan (this is common — the row should describe what shipped, not what was planned). Keep it in rule 11's order (kind, place and route; what the user sees; the fix; verdict; pointer); deep narrative belongs in the CHANGELOG and the linked docs, not the row (rule 11).
-
-CHANGELOG edit (in the **same commit**): hand off to the `my-changelog-management` skill for scope, structure, dating, and linking. Both edits land in one commit (rule 9 below).
-
-Commit message:
-
-```
-docs: mark <feature> shipped on roadmap and changelog
+```markdown
+- **<Initiative name>** — <one sentence: what changes for the user>. [spec](<path to the spec>)
+- **<Initiative name>** — <one sentence>. no spec yet [confidence: low]
 ```
 
-If multiple shipments land in one go, list them in the body.
+An icon is optional. Keep the one the file already uses, or use none.
 
-### 7. Reframes, splits, deletions
+### 4. Move a row between horizons
 
-- **Reframe** (scope or framing changed mid-flight): edit the row in place. Add one short clause to the row body explaining the pivot ("originally framed as X; reframed to Y after Z became clear"). Do **not** re-date the row.
-- **Split** (one row grew into multiple sub-tasks): keep the parent's number, give children suffixed numbers (`1`, `1b`, `1c`). Match the existing pattern in the file — do not invent new numbering schemes.
-- **Delete a 💭 / 📋 row**: allowed when the row is speculative and the user has agreed it's off the table. Note the deletion briefly in the next CHANGELOG entry's `### Removed` (or `### Docs`) section if a follow-up reader would otherwise wonder where it went.
-- **Delete a ✅ row**: don't. Shipped rows are historical record. They stay even if the feature was later removed — note the removal as a fresh CHANGELOG entry under `### Removed`.
+Edit the horizon and nothing else. A row moving to `Now` without a spec is allowed, but say so in one line: "This is now active without a spec. Write one?" Discovery work in `Now` is legitimate.
 
-### 8. Linking discipline (roadmap side)
+### 5. Add a spec link
 
-- Every roadmap row in `📋`, `🚧`, or `✅` status **must** link to its spec and/or plan. A row without a link is by definition `💭`.
-- **Same-repo targets → relative `.md` paths** (such as `<path to the plan>`, written relative to the roadmap file); never hardcode `.html`. A relative `.md` link renders on the Git host's web UI (GitHub/GitLab serve the rendered Markdown), resolves in the repo, and opens in editors. If the project also exports docs to standalone HTML, the `.md`→`.html` extension is rewritten at *build* time — so authoring `.html` in source breaks the hosted and raw-repo views to "fix" a view the build already handles. Keep source links `.md`.
-- **Out-of-repo / cross-repo targets → absolute web URLs**, not relative `../other-repo/...` paths. A path that climbs out of the repo only resolves on a local checkout that happens to have the sibling repo beside it — it is dead on the Git host's web UI and in any exported HTML. Link the hosted URL instead (e.g. `https://<git-host>/<group>/<repo>/-/blob/<default-branch>/<path>`); verify the target's default branch rather than assuming `main`/`master`.
-- If a plan is **moved, archived (e.g. into an `archive/` folder), or renamed**, repoint *every* link to it — a move silently breaks the link in all views, the Git host included. Run `git grep` on the old path across `ROADMAP.md`, `CHANGELOG.md`, and `docs/`. CHANGELOG-side updates are owned by `my-changelog-management`.
+When a spec exists, add the link. Link discipline:
 
-CHANGELOG-side linking lives in `my-changelog-management`. The two files are tied together by their shared links to the row's spec and plan, not to each other directly.
+- **Same-repo targets use a relative `.md` path.** The Git host renders Markdown, so an `.html` path breaks the hosted view.
+- **Cross-repo targets use an absolute web URL.** A relative path that climbs out of the repo dies outside a local checkout.
+- **A moved or renamed spec gets its links repointed.** Run `git grep` on the old path across `ROADMAP.md` and `docs/`.
 
-### 9. Commit discipline (roadmap side)
+### 6. Ship and roll off
 
-- Roadmap-only edits (rules 3–5, 7): one commit. Message: `docs: <verb> ROADMAP for <feature>`.
-- Roadmap + CHANGELOG paired edits (rule 6): **one commit**, never two. Message: `docs: mark <feature> shipped on roadmap and changelog`. Splitting them breaks atomicity — a reader bisecting `main` should never see a ✅ row whose CHANGELOG entry hasn't landed yet, or vice versa.
-- CHANGELOG-only edits: see `my-changelog-management` rule 9.
-- Run rule 10's link check first.
+When the initiative's work has landed on the main branch (verify with `git log` if unsure), **remove the row**. The changelog release is the record. There is no ✅ row and no done-list.
 
-Use Conventional Commits in all cases (project rule).
+Then say one line: "An initiative shipped. Cut a release?" This is a suggestion, not a mandate.
 
-### 10. Cross-check the row you just touched
+If the user says yes, hand off to `my-changelog-management`. This skill does not edit `CHANGELOG.md`, and it does not require a same-commit pair.
 
-Edit-scoped only — no full-file audits:
+### 7. Reframes, splits, and deletions
 
-- The status reflects reality (the integration has actually landed for ✅; plan file actually exists for 🚧; spec file actually exists for 📋).
-- Before the commit in rule 9, run `/home/dchris/.config/opencode/skills/bin/link-check.py ROADMAP.md`. Fix every `new` problem by rule 8: `html` → the `.md` twin's path; `climbs` → the absolute web URL on the Git host; `dead` → the moved file's path, or ask the user when no moved file exists. List every `old` problem to the user, one line each, and leave it. If `/home/dchris/.config/opencode/skills/bin/link-check.py` is not on `PATH`, or it exits `2`, show its stderr line (or say it is missing) and check by hand that the links in the row you touched resolve. In a paired edit (rule 6), run it once with both files, `/home/dchris/.config/opencode/skills/bin/link-check.py ROADMAP.md CHANGELOG.md`, and fix the changelog's `new` problems by `my-changelog-management` rule 8.
-- The row body is still index-level and in rule 11's order (kind, place and route; what the user sees; the fix; verdict; pointer) — you didn't append numbers, SHAs, or play-by-play that a linked doc already owns (rule 11).
-- The markdown table is still well-formed (no broken pipes, no missing cells).
+- **Reframe** — edit the row in place. Change the title only when it named an internal step rather than the outcome.
+- **Split** — one initiative becomes two independently valuable outcomes. Give each its own row. When the pieces only make sense together, it is one initiative with several tickets, and the split belongs in the tracker.
+- **Delete** — drop a `Next` or `Later` row that is off the table. No changelog note; the work never shipped.
 
-Skip broad audits (stale-💭 sweeps, orphan-row scans). Run those only when the user explicitly asks for a roadmap audit. The link check reads the whole file, but fixing old links is audit work.
+### 8. Dependencies belong to the tracker
 
-### 11. Row-body content discipline — index, not archive
+The tracker owns blocking edges: `Blocked by:` lines in local tickets, or native issue links. The roadmap expresses priority only, through the horizon.
 
-A roadmap row is an **index entry**, not the record of the work. The linked spec / plan / experiment-log / worklog is the source of truth; the row points at it. The same fact must not be maintained in both places — when the linked doc is later corrected, a duplicated row silently goes stale and ends up contradicting its own link.
+Do not add a `Depends on` column. Do not write prose edges such as "blocked by row 4b". Do not reorder horizons to encode a dependency. When a reader needs the blocking relation, link the spec and let the tracker answer.
 
-Keep in the row body, in this order, so that a reader who opens the roadmap cold knows what the row is without opening a link. Target: one sentence each for the first three parts, then the verdict and the pointer as short fragments (≤ ~5 lines in all):
+### 9. Row content discipline — index, not archive
 
-- **Kind, place and route** — the kind of work (`bug`, `feature`, `rule` for a change to instruction text, or another kind the roadmap already uses), where it happens (the skill, file or area), and the route when it is already known. In a project whose rules route its work, the row names its route as those rules say, and `route not set` until one is picked. In a project that does not route its work, leave the route out. Examples: `bug in the export command.` and `feature in the settings page, route not set.`
-- **What the user sees** — for a bug, what goes wrong for the person using the tool; for a feature, what they can do once it ships. Start from that effect, not from its cause in the code. Replace or define every term a reader may not know.
-- **The fix or the goal** — one sentence. When no linked document holds the facts a fixer needs (the cause, the chosen approach), this sentence keeps them, because the row is their only record.
-- **Current bottom line** — one line: shipped / NO-GO / blocked-on-X. Include a single figure *only when that figure is itself the verdict* (e.g. a NO-GO whose crux is "background-FP 51 vs 12") — one decisive number, not a metrics dump.
-- **A pointer** — "detail in the linked X" when the row links somewhere.
+A roadmap row is an index entry. The linked spec is the source of truth. Keep each row to:
 
-Push to the linked doc, never copied into the row:
+- **Outcome** — what changes for the user, in one sentence.
+- **Link** — the spec, or `no spec yet`.
+- **Confidence** — only when it matters.
 
-- Metrics and numbers (mAP, AUC, counts, thresholds, dates beyond the row's own status), commit SHAs, per-phase / per-experiment play-by-play, mechanism explanations, full verdict reasoning, supersession chains.
+Target one outcome sentence, the link, and confidence when it matters. When a rendered row runs past three lines, trim it. Metrics, commit SHAs, per-phase history, and full verdict reasoning stay in the linked spec.
 
-The one exception: a cause or a chosen approach that no linked document holds stays in the fix sentence, as above.
+Why this is a rule: the row and the spec are two copies of one fact. Only the spec is maintained as ground truth. An oversized row silently goes stale and contradicts its own link.
 
-**Trim trigger** (applies whenever you write or edit a body — rules 3–7): if the body would run past the target above (~5 lines), or you're about to paste a figure or SHA that already lives in a linked doc, **compress instead of appending**. When you touch a row that has already accumulated history, trim it to the order above (kind, effect, fix, verdict, pointer) in the *same* edit — never add one more clause to an already-oversized cell. (Markdown table cells can't contain paragraph breaks, so an over-long cell can't even be reformatted into readable prose — the only available fix is less content.)
+### 10. Commit discipline
 
-Why this is a rule and not a style preference: the row and the linked doc are two copies of one fact, and only the linked doc is maintained as ground truth. Most `ROADMAP.md` files state this contract in their own intro ("Keep this short — details live in the linked docs"). Enforce it on every edit, not just new rows.
+Roadmap-only edits get one commit:
 
-### 12. Dependencies are expressed as order, not as a graph
+- `docs(roadmap): add <initiative>`
+- `docs(roadmap): move <initiative> to <horizon>`
+- `docs(roadmap): drop <initiative>`
 
-A roadmap says what and roughly when. Blocking relations are execution detail — a tracker's job (issue relations), where they are structural rather than narrated. A roadmap absorbs a dependency by **making it an order**: if A blocks B, B sits in a later tier. Do not build a `Depends on` column. A roadmap that needs a real graph is telling you the work belongs in issues.
+Use Conventional Commits. There is no paired changelog commit; strategy and releases are decoupled.
 
-What to write instead, in escalating order of need:
+### 11. Cross-check the row you touched
 
-- **Nothing.** If the priority/status tiers already put the blocker first, the dependency is expressed. Stop here — a prose edge that only restates the tier is pure decay surface.
-- **One clause, one direction.** Where an edge genuinely changes the order, name the blocker *from the blocked row*: `Blocked by row 4b.` For a blocker outside the roadmap, such as a client's answer or a missing file, write `Waits for <what>.` in the same place. Never mix directions — "raises the ceiling on row 5" in one row and "the keying half is row 4b" in another forces the reader to parse each sentence for which way the arrow runs.
+Edit-scoped only:
 
-Two failure modes to watch:
+- The horizon is one of the defined names.
+- The spec link resolves. Before the commit, run `~/.config/opencode/skills/bin/link-check.py ROADMAP.md`. Fix every `new` problem by rule 5. List every `old` problem to the user, one line each, and leave it. If the script is missing or exits `2`, check the new links by hand.
+- The row is outcome plus link, at index level.
+- No ✅ row or done-list has crept back in.
+- The markdown table or list is still well-formed.
 
-- **Split-rot.** When rule 7 splits a row, inherited edge clauses keep pointing at numbers that no longer mean what they meant. A split keeps the parent's number, so an edge that now means a child still names the parent. Re-read every prose edge that names the parent, and point it at the parent or the child it now means.
-- **Duplicate orderings.** A durable doc elsewhere may already sequence the work, such as an action plan's phases or a spec's phasing. Do not maintain a second copy. Keep one live ordering and link to it from the roadmap.
+Skip broad audits unless the user asks for a roadmap audit.
+
+### 12. Suggest a release cut; never perform it
+
+When an initiative ships (rule 6), the roadmap's only link to the changelog is the one-line suggestion. The user decides. If they accept, `my-changelog-management` cuts the release.
+
+This keeps the two files decoupled. A reader who bisects `main` never needs a roadmap row and a changelog entry to land together.
 
 ## Common mistakes
 
-- Promoting 📋 → 🚧 just because a workspace was created — the plan file must exist first.
-- Promoting 🚧 → ✅ before the integration has actually landed on the main/release branch (`git log` not yet showing it).
-- Editing only the roadmap on a shipment, forgetting the CHANGELOG entry — or vice versa. The same-commit rule (9) is the safety net.
-- Putting a refactor or a test addition in CHANGELOG. It gets no entry (see `my-changelog-management` rule 2).
-- Deleting a ✅ row when the feature was later removed. Add a `### Removed` CHANGELOG entry instead; the historical row stays.
-- Adding a 💭 row for a casual brainstorm tangent. Wait for explicit user agreement first.
-- Narrating a dependency the priority tier already implies, adding a `Depends on` column, or leaving an edge pointing at a parent row whose work a split moved to a child (rule 12).
-- Pasting metrics, commit SHAs, or per-phase history into a row body that the linked doc already records, or appending one more clause to an already-bloated cell. The row points at detail; it doesn't duplicate it (rule 11).
-- Hardcoding `.html` in a link, or pointing at a cross-repo file with a relative `../other-repo/...` path. The first breaks the Git host's rendered view; the second is dead anywhere but a local checkout. Same-repo → relative `.md`; cross-repo → absolute URL (rule 8).
+- Treating the roadmap as a tracker: per-feature status, ✅ rows, or a permanent done-list.
+- Requiring a spec before a row can exist. The spec is a link, not a gate.
+- Adding a `Depends on` column or prose edges. The tracker owns blockers.
+- Editing `CHANGELOG.md` from this skill, or forcing a same-commit pair.
+- Keeping a shipped initiative on the roadmap. It rolls off; the changelog is the record.
+- Pasting metrics, SHAs, or play-by-play into a row.
+- Creating a second roadmap when one already exists under another name.
