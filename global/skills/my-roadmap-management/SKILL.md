@@ -4,9 +4,8 @@ description: >
   Use when updating ROADMAP.md — adding an initiative, moving it between the
   Now/Next/Later horizons, or recording that an initiative shipped. Trigger on
   "update the roadmap", "add to the roadmap", "move X to next", "X shipped",
-  "we finished X", and "what are we investing in". Owns the roadmap as a
-  forward-looking index of initiatives. The tracker owns specs, tickets, and
-  execution state; the changelog owns the release record.
+  "we finished X", and "what are we investing in". Records investment; releases
+  belong to the changelog.
 ---
 
 # Roadmap Management
@@ -88,7 +87,7 @@ If a request fits no row, ask the user. A speculative roadmap row is noise.
 
 ### 1. Read the roadmap before editing
 
-Open `ROADMAP.md` and find the horizon section the row belongs to. Check the open rows against rule 9's row order. If some rows do not follow it, ask once, before the requested edit: "N open rows do not follow the row order, so they are hard to read cold. Rewrite them now, in a separate commit?" Ask at most once per session.
+Open `ROADMAP.md` and find the horizon section the row belongs to. Check the open rows against rule 9's order: outcome, then link, then confidence. If some rows order those fields differently, ask once, before the requested edit: "N open rows put the fields out of order, so they read badly cold. Rewrite them now, in a separate commit?" Ask at most once per session.
 
 - **On yes:** rewrite every open row to rule 9's order, in one commit of its own, before the requested edit. Read a row's linked spec when the row alone does not say the outcome. Keep every number.
 - **On no:** do the requested edit only. Trim each row you touch to rule 9's order.
@@ -157,7 +156,7 @@ A roadmap row is an index entry. The linked spec is the source of truth. Keep ea
 
 Target one outcome sentence, the link, and confidence when it matters. When a rendered row runs past three lines, trim it. Metrics, commit SHAs, per-phase history, and full verdict reasoning stay in the linked spec.
 
-Why this is a rule: the row and the spec are two copies of one fact. Only the spec is maintained as ground truth. An oversized row silently goes stale and contradicts its own link.
+Why: only the spec is maintained as ground truth, so an oversized row silently goes stale and contradicts its own link.
 
 ### 10. Commit discipline
 
@@ -180,19 +179,3 @@ Edit-scoped only:
 - The markdown table or list is still well-formed.
 
 Skip broad audits unless the user asks for a roadmap audit.
-
-### 12. Suggest a release cut; never perform it
-
-When an initiative ships (rule 6), the roadmap's only link to the changelog is the one-line suggestion. The user decides. If they accept, `my-changelog-management` cuts the release.
-
-This keeps the two files decoupled. A reader who bisects `main` never needs a roadmap row and a changelog entry to land together.
-
-## Common mistakes
-
-- Treating the roadmap as a tracker: per-feature status, ✅ rows, or a permanent done-list.
-- Requiring a spec before a row can exist. The spec is a link, not a gate.
-- Adding a `Depends on` column or prose edges. The tracker owns blockers.
-- Editing `CHANGELOG.md` from this skill, or forcing a same-commit pair.
-- Keeping a shipped initiative on the roadmap. It rolls off; the changelog is the record.
-- Pasting metrics, SHAs, or play-by-play into a row.
-- Creating a second roadmap when one already exists under another name.
