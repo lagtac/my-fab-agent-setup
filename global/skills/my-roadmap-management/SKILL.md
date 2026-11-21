@@ -166,13 +166,13 @@ Why: only the spec is maintained as ground truth, so an oversized row silently g
 
 ### 10. Commit discipline
 
-Roadmap-only edits get one commit:
+When the session asked for commits, a roadmap-only edit gets one commit:
 
 - `docs(roadmap): add <initiative>`
 - `docs(roadmap): move <initiative> to <horizon>`
 - `docs(roadmap): drop <initiative>`
 
-Use Conventional Commits. There is no paired changelog commit; strategy and releases are decoupled.
+Use Conventional Commits. There is no paired changelog commit; strategy and releases are decoupled. When the session did not ask for commits, leave the edit in the working tree for the user's `/commit`.
 
 ### 11. Cross-check the row you touched
 

@@ -122,8 +122,10 @@ Done when no `new` problem remains unresolved.
 
 ### 9. Commit
 
+When the session asked for commits:
+
 - **Changelog-only edit**: one commit, `docs(changelog): note <change>`.
 - **A release cut**: one commit, `docs(changelog): cut release YYYY-MM-DD`.
 - **Commit `CHANGELOG.md` alone.** A roadmap change lands in its own commit, so a reader who bisects `main` never needs the two together.
 
-Use Conventional Commits. Done when `git show --stat HEAD` lists `CHANGELOG.md` and nothing else.
+Use Conventional Commits. Done when `git show --stat HEAD` lists `CHANGELOG.md` and nothing else. When the session did not ask for commits, leave the edit in the working tree for the user's `/commit`.
