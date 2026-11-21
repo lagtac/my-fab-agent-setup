@@ -1,56 +1,39 @@
 # Workflow skills handoff
 
 Date: 2026-11-19
-Scope: commits `e9471e9..172c8a7`, the four workflow skills.
-State: conclusion revised. No skill edits. Working tree clean.
+Revised: 2026-11-20
+Scope: the four workflow skills, from `e9471e9..172c8a7` to the rewrite in `d267623..8b8a4d5`.
+State: rewrite landed. No open skill edits.
 
 ## Conclusion
 
-Rewrite `my-roadmap-management` and `my-changelog-management` from scratch. The current models answer the wrong question. The tracker and ADR already have owners in Matt Pocock's skills.
+The roadmap and changelog were rebuilt around the reader-decision-lifetime split. The tracker and ADR stay with Matt Pocock's skills.
 
-## Why
+## Current model
 
-The reader-decision-lifetime split decides each artifact. A roadmap supports an investment decision for the team and stakeholders, over a rolling horizon. Its unit is an initiative or outcome. The current skill models a per-feature status machine (💭 📋 🚧 ✅) with permanent ✅ rows. That is a work tracker, and `to-tickets` and `triage` already own that job.
+- `my-roadmap-management` holds the investment decision: one row per initiative under `Now`, `Next`, or `Later`, with optional confidence. It has no lifecycle machine, no ✅ rows, and no done-list. A shipped row is removed, and the skill suggests a release cut. The tracker owns blocking edges.
+- `my-changelog-management` holds the release record. Entries accumulate under `[Unreleased]`; a cut freezes them under a date and opens a fresh block. The draft comes from Conventional Commits on the main branch, then is rewritten for the reader. A release needs no git tag.
+- `my-status` is a rendered view over the tracker. It holds no fact of its own.
+- `my-worklog` holds the narrative, decisions, and handoffs.
+- Strategy and releases are decoupled. No commit edits both the roadmap and the changelog.
 
-A changelog supports an upgrade decision for users and operators. Its unit is a release, and its source is the commits and tags that make up that release. The current skill hand-writes one entry per change. That duplicates git at change granularity.
+## Ownership
 
-## Already handled
-
-- Issue tracker: `to-tickets`, `triage`, and `setup-matt-pocock-skills` for the tracker config and triage labels.
-- Domain docs: `domain-modeling` owns `GLOSSARY.md` and `docs/adr/`.
+- Issue tracker: `to-tickets`, `triage`, and `setup-matt-pocock-skills`.
+- ADR and glossary: `domain-modeling`.
 - Spec and execution: `to-spec` and `implement-spec`.
-- All live under `~/.agents/skills/`. `to-tickets`, `triage`, `to-spec`, `implement-spec`, and `setup-matt-pocock-skills` are user-invoked (`disable-model-invocation: true`).
+- All under `~/.agents/skills/`. The tracker and spec skills are user-invoked.
 
-## What the rewrite changes
+## Verification
 
-Roadmap:
+`python3 scripts/skills_audit.py --check --root global/skills` exits 0. The named-trigger check finds no trigger that names another skill.
 
-- Unit: initiative or outcome, not a feature ticket.
-- Status: a horizon or confidence level, not 💭 📋 🚧 ✅.
-- Links: the spec or epic in the tracker.
-- Drop: ✅ rows, promotion rules, and dependency-as-order. Tickets carry blocking edges.
-- Keep: short rows, links over copies, one owner per fact.
+Three description collisions exist elsewhere in the installed set: `deep-research` / `my-deep-research`, `built-in-browser` / `chrome-browser`, and `grill-me` / `grill-with-docs`. None involve these four.
 
-Changelog:
+## Open
 
-- Unit: release.
-- Source: commits and tags, grouped and rewritten for users.
-- Flow: curate at release time, or generate and then edit.
-- Drop: per-change hand entries as the primary flow.
-- Keep: user and operator language, internal work excluded, links to detail.
-
-## Consequence
-
-The current hard dependency, roadmap to changelog at the 🚧 → ✅ promotion, disappears. Strategy and releases decouple.
-
-## Open decisions
-
-1. Roadmap horizon: now/next/later, or themes with no dates.
-2. Row link target: spec, epic, or the ticket set.
-3. Changelog source: generated from Conventional Commits, or hand-curated at release.
-4. Archive policy for old releases.
-5. Whether `my-status` survives the tracker dashboard. Secondary.
+Archive policy for old releases. The changelog is append-only and newest-first, with no rule to archive or split an old release.
 
 ## Next action
 
-Rewrite the two skills against this model. No edits made.
+Decide the archive policy, or close the handoff.
