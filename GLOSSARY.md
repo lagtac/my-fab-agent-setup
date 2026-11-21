@@ -1,6 +1,6 @@
-# Workflow skills
+# Project memory skills
 
-The vocabulary shared by the workflow skills that manage a project's roadmap, changelog, and status. It keeps strategy, execution, and the release record from collapsing into one another.
+The vocabulary shared by the project-memory skills that manage a project's roadmap, changelog, status, and worklog. It keeps strategy, execution, and the release record from collapsing into one another.
 
 ## Language
 

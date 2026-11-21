@@ -1,17 +1,19 @@
-# Workflow skills
+# Project memory skills
 
 Four skills answer four questions about a project's files. You ask in plain words, and the agent picks the skill. Say the skill's name when you want it directly.
 
 A fifth skill, `my-name-pane`, labels the tmux pane after the work the session took on: a roadmap row, a spec, or the session goal. It owns no file.
 
-The terms *initiative*, *horizon*, and *release* are defined in [GLOSSARY.md](../GLOSSARY.md).
+The terms _initiative_, _horizon_, and _release_ are defined in [GLOSSARY.md](../GLOSSARY.md).
 
-| You ask | Skill | File it owns |
-|---|---|---|
-| Where are we? What is next? What is blocked? | `my-status` | `STATUS.md`, a view over the tracker |
-| Log the day, read it back, or find a decision | `my-worklog` | `WORKLOG.md` |
-| Update the roadmap, add or move an initiative | `my-roadmap-management` | `ROADMAP.md` |
-| Add a changelog entry, cut a release | `my-changelog-management` | `CHANGELOG.md` |
+The routing rules an agent follows live in [`global/rules/project-memory.md`](../global/rules/project-memory.md). This page explains the loop to a person; the rule says what to do and when.
+
+| You ask                                       | Skill                     | File it owns                         |
+| --------------------------------------------- | ------------------------- | ------------------------------------ |
+| Where are we? What is next? What is blocked?  | `my-status`               | `STATUS.md`, a view over the tracker |
+| Log the day, read it back, or find a decision | `my-worklog`              | `WORKLOG.md`                         |
+| Update the roadmap, add or move an initiative | `my-roadmap-management`   | `ROADMAP.md`                         |
+| Add a changelog entry, cut a release          | `my-changelog-management` | `CHANGELOG.md`                       |
 
 ## The split
 
