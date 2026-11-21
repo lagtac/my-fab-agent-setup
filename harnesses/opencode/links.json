@@ -18,6 +18,11 @@
       "kind": "file"
     },
     {
+      "source": "harnesses/opencode/code-mode.md",
+      "target": "code-mode.md",
+      "kind": "file"
+    },
+    {
       "source": "harnesses/opencode/cli.json",
       "target": "cli.json",
       "kind": "file"

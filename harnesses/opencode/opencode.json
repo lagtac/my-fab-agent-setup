@@ -37,7 +37,8 @@
   "skills": [],
   "references": {},
   "instructions": [
-    "~/.config/opencode/rules/*.md"
+    "~/.config/opencode/rules/*.md",
+    "~/.config/opencode/code-mode.md"
   ],
   "compaction": {
     "auto": true
