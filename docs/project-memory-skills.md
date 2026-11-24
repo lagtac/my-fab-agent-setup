@@ -6,7 +6,7 @@ A fifth skill, `my-name-pane`, labels the tmux pane after the work the session t
 
 The terms _initiative_, _horizon_, and _release_ are defined in [GLOSSARY.md](../GLOSSARY.md).
 
-The routing rules an agent follows live in [`global/rules/project-memory.md`](../global/rules/project-memory.md). This page explains the loop to a person; the rule says what to do and when.
+The routing rule lives in [`global/skills/my-project-memory-setup/project-memory.md`](../global/skills/my-project-memory-setup/project-memory.md). The `my-project-memory-setup` skill appends it to a project's `AGENTS.md` or `CLAUDE.md`. This page explains the loop to a person; the rule says what to do and when.
 
 | You ask                                       | Skill                     | File it owns                         |
 | --------------------------------------------- | ------------------------- | ------------------------------------ |
@@ -98,11 +98,12 @@ The tracker owns this lifecycle. `my-status` renders it; it does not change it.
 
 ## Adopting the skills in a project
 
-Nothing to install; the skills are global. They work in any repo, with a local-markdown tracker or GitHub issues.
+The skills are global; the routing rule is opt-in. They work in any repo, with a local-markdown tracker or GitHub issues.
 
-1. **Run "where are we" in the project.** When no status file exists, the agent answers from the tracker and offers to create `STATUS.md`. Accept, or ask for the first edit.
-2. **Log the first day.** "Log the day" writes today's heading and the session's bullets.
-3. **Keep the defaults or declare your own.** Put the paths in `AGENTS.md` or `CLAUDE.md` when they differ:
+1. **Run `my-project-memory-setup` in the project root.** It appends the routing rule to `CLAUDE.md` or `AGENTS.md`.
+2. **Run "where are we".** When no status file exists, the agent answers from the tracker and offers to create `STATUS.md`. Accept, or ask for the first edit.
+3. **Log the first day.** "Log the day" writes today's heading and the session's bullets.
+4. **Keep the defaults or declare your own.** Put the paths in `AGENTS.md` or `CLAUDE.md` when they differ:
 
    ```markdown
    ## Workflow files
@@ -113,7 +114,7 @@ Nothing to install; the skills are global. They work in any repo, with a local-m
    - Changelog: `CHANGELOG.md`
    ```
 
-4. **Name the tracker when it is not obvious.** A local-markdown tracker keeps specs and issues under `.scratch/<slug>/`. A GitHub-issue tracker uses `gh issue list`. The agent asks when the repo shows neither.
+5. **Name the tracker when it is not obvious.** A local-markdown tracker keeps specs and issues under `.scratch/<slug>/`. A GitHub-issue tracker uses `gh issue list`. The agent asks when the repo shows neither.
 
 A project that already keeps a status file, worklog, roadmap, or changelog under another name keeps it. The skills reuse that file and its shape, and never create a second one.
 

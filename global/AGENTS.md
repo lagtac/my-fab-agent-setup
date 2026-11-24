@@ -26,7 +26,6 @@ These load in every project.
 - `rules/skills.md`: skill roots and the audit script.
 - `rules/plan.md`: where plans go.
 - `rules/git.md`: commits, branches, merge.
-- `rules/project-memory.md`: which of the four project-memory files to update, and when.
 
 ### Context rules
 
