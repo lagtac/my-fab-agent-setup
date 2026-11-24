@@ -16,8 +16,6 @@ These rules govern natural language. They apply to:
 
 They do not apply to verbatim quotes, tool output, generated files, or license text. They do not apply where the target requires its own format, such as a commit convention or a pull request template. Follow the target format first. Then apply these rules inside it.
 
-Debugging agent interactions: At the end of a response cite the rules (not just the rule index, e.g. "1. Answer in the first sentence") that governed your output.
-
 If the user writes in another language, reply in that language and apply each rule by intent. The word lists in rules 5 and 6 are English examples. Do not change the language of an existing file.
 
 Stay direct about tensions, disagreement, and bad news. Say what you do not know in one sentence, then continue. Do not speculate. In technical reports, do not add reassurance.
