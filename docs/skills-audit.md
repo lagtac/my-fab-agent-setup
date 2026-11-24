@@ -25,7 +25,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 14 | wayfinder | ~/.agents/skills | 3,102 | 52 |  |
 | 15 | impeccable | ~/.agents/skills | 2,940 | 150 |  |
 | 16 | my-tutor | ~/.config/opencode/skills | 2,905 | 99 | `~/.claude/skills/my-tutor/SKILL.md` |
-| 17 | my-roadmap-management | ~/.config/opencode/skills | 2,738 | 88 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
+| 17 | my-roadmap-management | ~/.config/opencode/skills | 2,897 | 88 | `~/.claude/skills/my-roadmap-management/SKILL.md` |
 | 18 | writing-for-agents | ~/.agents/skills | 2,721 | 31 |  |
 | 19 | import-memory | ~/.claude/skills | 2,672 | 39 |  |
 | 20 | teach | ~/.agents/skills | 2,433 | 17 |  |
@@ -33,7 +33,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 22 | diagnosing-bugs | ~/.agents/skills | 2,166 | 43 |  |
 | 23 | xlsx | ~/.claude/skills | 2,149 | 240 |  |
 | 24 | pdf | ~/.claude/skills | 2,018 | 110 |  |
-| 25 | my-changelog-management | ~/.config/opencode/skills | 1,943 | 73 | `~/.claude/skills/my-changelog-management/SKILL.md` |
+| 25 | my-changelog-management | ~/.config/opencode/skills | 1,978 | 73 | `~/.claude/skills/my-changelog-management/SKILL.md` |
 | 26 | docx | ~/.claude/skills | 1,909 | 235 |  |
 | 27 | setup-ts-deep-modules | ~/.agents/skills | 1,886 | 52 |  |
 | 28 | setup-matt-pocock-skills | ~/.agents/skills | 1,881 | 51 |  |
@@ -50,10 +50,10 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 39 | my-git-squasher | ~/.config/opencode/skills | 1,386 | 51 | `~/.claude/skills/my-git-squasher/SKILL.md` |
 | 40 | find-skills | ~/.agents/skills | 1,368 | 79 |  |
 | 41 | de-slop | ~/.claude/skills | 1,348 | 138 |  |
-| 42 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
-| 43 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
-| 44 | retro | ~/.agents/skills | 1,092 | 13 |  |
-| 45 | my-status | ~/.config/opencode/skills | 1,049 | 56 | `~/.claude/skills/my-status/SKILL.md` |
+| 42 | my-status | ~/.config/opencode/skills | 1,264 | 56 | `~/.claude/skills/my-status/SKILL.md` |
+| 43 | writing-beats | ~/.agents/skills | 1,213 | 31 |  |
+| 44 | chief-of-staff | ~/.agents/skills | 1,182 | 22 |  |
+| 45 | retro | ~/.agents/skills | 1,092 | 13 |  |
 | 46 | pr | ~/.agents/skills | 1,042 | 8 |  |
 | 47 | wizard | ~/.agents/skills | 1,030 | 80 |  |
 | 48 | tdd | ~/.agents/skills | 907 | 38 |  |
@@ -82,7 +82,7 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
 | 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 72 · **Total load:** 142,193 tok · **Catalogue (always on):** 6,090 tok
+**Skills:** 72 · **Total load:** 142,602 tok · **Catalogue (always on):** 6,090 tok
 
 ## Trigger collisions
 
