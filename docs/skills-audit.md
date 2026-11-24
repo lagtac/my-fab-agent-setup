@@ -72,17 +72,18 @@ Scanned: `~/.config/opencode/skills`, `~/.claude/skills`, `~/.agents/skills`.
 | 61 | grilling | ~/.agents/skills | 638 | 40 |  |
 | 62 | loop-me | ~/.agents/skills | 630 | 22 |  |
 | 63 | git-guardrails-claude-code | ~/.agents/skills | 578 | 68 |  |
-| 64 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
-| 65 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
-| 66 | docs | ~/.claude/skills | 312 | 254 |  |
-| 67 | handoff | ~/.agents/skills | 235 | 24 |  |
-| 68 | research | ~/.agents/skills | 208 | 62 |  |
-| 69 | implement | ~/.agents/skills | 155 | 18 |  |
-| 70 | wait-what | ~/.agents/skills | 99 | 15 |  |
-| 71 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
-| 72 | grill-me | ~/.agents/skills | 39 | 15 |  |
+| 64 | my-project-memory-setup | ~/.config/opencode/skills | 572 | 55 | `~/.claude/skills/my-project-memory-setup/SKILL.md` |
+| 65 | setup-pre-commit | ~/.agents/skills | 564 | 64 |  |
+| 66 | claude-handoff | ~/.agents/skills | 356 | 28 |  |
+| 67 | docs | ~/.claude/skills | 312 | 254 |  |
+| 68 | handoff | ~/.agents/skills | 235 | 24 |  |
+| 69 | research | ~/.agents/skills | 208 | 62 |  |
+| 70 | implement | ~/.agents/skills | 155 | 18 |  |
+| 71 | wait-what | ~/.agents/skills | 99 | 15 |  |
+| 72 | grill-with-docs | ~/.agents/skills | 61 | 31 |  |
+| 73 | grill-me | ~/.agents/skills | 39 | 15 |  |
 
-**Skills:** 72 · **Total load:** 142,602 tok · **Catalogue (always on):** 6,090 tok
+**Skills:** 73 · **Total load:** 143,174 tok · **Catalogue (always on):** 6,145 tok
 
 ## Trigger collisions
 
