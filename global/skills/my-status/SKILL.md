@@ -37,11 +37,11 @@ Done when the four sections print with their `Updated` date and the stale line, 
 
 ## 2. What is next
 
-Print the `Next` section in tracker order, each item with its link. When `Next` is empty, read the tracker and list its open, unblocked items.
+Print every open, unblocked, unclaimed ticket in the `Next` section, in tracker order, each with its link. The list is the whole frontier, so no ticket is left out.
 
 `Next` is the frontier, not a separate decision list. To change it, change the tracker: unblock an item or reprioritize it. Then render the view again.
 
-Done when every next item is printed with its link.
+Done when every open, unblocked, unclaimed ticket is printed with its link.
 
 ## 3. Refresh after a change
 
@@ -56,7 +56,19 @@ Set `Updated:` to today on every render. Do not hand-edit a state line that the 
 
 Done when the tracker holds every change, the view is rendered after it, and every line links.
 
-## 4. Create the file
+## 4. Reconcile with the roadmap
+
+When the project has a roadmap (`ROADMAP.md`, or the path `AGENTS.md` declares), read it and check three things:
+
+1. No row lists a bare `#NN`. A row carries one outcome and one spec link, or `no spec yet`.
+2. Each `Now` row either links an open spec or says `no spec yet`. A closed spec means the row should have rolled off.
+3. Every open, unblocked ticket appears in `Next`.
+
+Report each mismatch in one line. Fix `STATUS.md` where the view is wrong. Name the roadmap row and ask before editing `ROADMAP.md`, because the horizon is an investment decision.
+
+Done when all three checks pass, or every mismatch is reported.
+
+## 5. Create the file
 
 When the project has none, create it on the first **edit** request. Use the shape below, and render it from the tracker. The front-matter names the skill that owns the file, so write it on create and keep it on every edit. When you create `STATUS.md`, also list it under the `project lifecycle` heading in `AGENTS.md`.
 
@@ -94,4 +106,5 @@ Updated: YYYY-MM-DD
 
 - `Updated:` is the date the view was last rendered.
 - `Active` lists claimed tickets or the user's word. `Blocked` names what each item waits for.
-- `Next` lists the frontier: open, unblocked, unclaimed, in tracker order. Keep it short.
+- `Next` lists the whole frontier: every open, unblocked, unclaimed ticket, in tracker order.
+- `Active`, `Blocked`, and `Next` are execution states. The roadmap's `Now`, `Next`, and `Later` are investment horizons, and `Now` mirrors `Active`.

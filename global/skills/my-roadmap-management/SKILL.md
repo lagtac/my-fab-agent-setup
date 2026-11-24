@@ -18,7 +18,7 @@ Three artifacts split the job:
 - **Tracker** — execution. Specs, tickets, blocking edges, and triage state.
 - **Changelog** — the release record. What each release changed for users.
 
-A roadmap row links its spec, or the tracker epic that holds it. It does not copy ticket state, and it never becomes a done-list.
+A roadmap row links one spec. It does not copy ticket state, and it never becomes a done-list.
 
 ## Adapting to the project
 
@@ -64,9 +64,11 @@ The front-matter names the skill that owns the file. Write it on create and keep
 
 Default: `Now` · `Next` · `Later`. A row sits in exactly one. Match a project's own horizon names when its roadmap already uses them, such as "This quarter / Next quarter / Later".
 
-- **Now** — the team is actively investing. Being worked, or next in line.
+- **Now** — the work is being done, or is next in line. This mirrors the status view's `Active`, so a row whose work waits on a human is `Next`, not `Now`.
 - **Next** — agreed and queued. Not started.
 - **Later** — worth doing, not scheduled.
+
+The horizons are investment order. The status view's `Active`, `Blocked`, and `Next` are execution states; only `Now` mirrors `Active`.
 
 **Confidence** is an optional annotation, not a horizon. Add `[confidence: low]` (or `medium`, `high`) only when a row's commitment is genuinely uncertain, usually in `Later`. Omit it when it adds nothing.
 
@@ -105,6 +107,8 @@ Look up the user's request in the decision table and jump to the rule it points 
 ### 3. Add an initiative
 
 A row goes in only after the user has agreed to the initiative in conversation. Casual mentions and brainstorm tangents do not earn a row.
+
+An initiative is one outcome. A themed bundle of unrelated tickets is not a row; it stays in the tracker, and any single ticket that is real investment gets its own row.
 
 - Choose the horizon. Default to `Next` unless the user says otherwise.
 - Number the row only when the roadmap already numbers rows. Never reuse a number.
@@ -160,6 +164,8 @@ A roadmap row is an index entry. The linked spec is the source of truth. Keep ea
 - **Link** — the spec, or `no spec yet`.
 - **Confidence** — only when it matters.
 
+Name no tickets and no ticket range. A `#NN` belongs in the tracker; the row links its one spec, or says `no spec yet`.
+
 Target one outcome sentence, the link, and confidence when it matters. When a rendered row runs past three lines, trim it. Metrics, commit SHAs, per-phase history, and full verdict reasoning stay in the linked spec.
 
 Why: only the spec is maintained as ground truth, so an oversized row silently goes stale and contradicts its own link.
@@ -180,7 +186,7 @@ Edit-scoped only:
 
 - The horizon is one of the defined names.
 - The spec link resolves. Before the commit, run `~/.config/opencode/skills/bin/link-check.py ROADMAP.md`. Fix every `new` problem by rule 5. List every `old` problem to the user, one line each, and leave it. If the script is missing or exits `2`, check the new links by hand.
-- The row is outcome plus link, at index level.
+- The row is outcome plus link, at index level. It names no ticket.
 - No ✅ row or done-list has crept back in.
 - The markdown table or list is still well-formed.
 

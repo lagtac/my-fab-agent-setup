@@ -27,7 +27,7 @@ A fact lives in one place. The roadmap and changelog link to the tracker; they d
 
 ## A normal day
 
-1. **Start with "what is next".** `my-status` prints the `Next` section from the tracker, each item with a link. When `Next` is empty, it lists the open, unblocked items. You pick the work.
+1. **Start with "what is next".** `my-status` prints every open, unblocked, unclaimed ticket in `Next`, each with a link. Nothing is trimmed. You pick the work.
 2. **Mark the item started.** The tracker records the claim; the status view reflects it. For a roadmap initiative, the row is already under `Now`, or you move it there.
 3. **Work.** Mid-flight changes go to the tracker: a reframe, a split, a new spec. The roadmap row changes only when the initiative itself changes.
 4. **Ship.** The change lands on main. If it completes a roadmap initiative, remove the row and suggest a release. The changelog records what users and operators get.
@@ -54,7 +54,7 @@ flowchart LR
 
 ## The roadmap row and the tracker item
 
-The roadmap row and the tracker item move on different tracks. The roadmap orders investment; the tracker records execution.
+The roadmap row and the tracker item move on different clocks. The roadmap orders investment; the tracker records execution. Their present tense agrees: a row is `Now` while its ticket is `Active`.
 
 ### Roadmap row
 

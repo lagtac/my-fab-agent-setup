@@ -28,14 +28,6 @@ The changelog holds what a user sees. Internal work stays out, and the work step
 
 ---
 
-#28 is the case that proves the gap. The banner landed in `d5e9913` and `494a984`, the issue closed, and only STATUS was updated. The changelog never learned about the banner, and the worklog never recorded the session.
-
----
-
-#23 to #26 are the other direction. The code landed on `main`, but the issues stayed open. STATUS rendered the tracker, so the view showed work as unfinished while the code was live.
-
----
-
 The four skills each said "commit this file alone". The global git rule says never commit unless the user or a skill asks. The answer: leave a memory edit uncommitted unless the session asked for commits. The skills' commit sections now say the same.
 
 ---

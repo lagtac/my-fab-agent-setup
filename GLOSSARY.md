@@ -13,8 +13,12 @@ One outcome the team intends to deliver, written as a single roadmap row.
 _Avoid_: feature, ticket, task
 
 **Horizon**:
-The time bucket a roadmap row sits in: Now, Next, or Later.
+The investment bucket a roadmap row sits in: `Now`, `Next`, or `Later`. `Now` mirrors a ticket's `Active` state; the other horizons are investment order, not execution state.
 _Avoid_: status, phase, tier
+
+**Ticket state**:
+The tracker's execution state for a ticket: `Active` (started and unblocked), `Blocked` (waits on something else), or `Next` (open, unblocked, unclaimed). It is not a horizon.
+_Avoid_: status, phase
 
 **Confidence**:
 An optional note on how sure it is that an initiative ships as described.
