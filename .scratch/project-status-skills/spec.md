@@ -1,6 +1,6 @@
 # Spec: Status, worklog, roadmap, and changelog skills
 
-Status: ready-for-agent
+Status: done
 
 ## Problem Statement
 
