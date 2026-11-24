@@ -76,18 +76,18 @@ The horizons are investment order. The status view's `Active`, `Blocked`, and `N
 
 Look up the situation, then jump to the rule.
 
-| Situation                                    | Edit                                                   | Rule                             |
-| -------------------------------------------- | ------------------------------------------------------ | -------------------------------- |
-| User agrees to a new initiative              | Add a row under a horizon; link the spec if one exists | 3                                |
-| Priority shifts                              | Move the row between horizons                          | 4                                |
-| Spec written for a queued row                | Add the spec link                                      | 5                                |
-| The initiative's work landed on main         | Remove the row; suggest cutting a release              | 6                                |
-| Scope or framing changed                     | Edit the row in place                                  | 7                                |
-| One initiative splits into separate outcomes | Split into rows                                        | 7                                |
-| An idea is dropped before work starts        | Delete the row                                         | 7                                |
-| One ticket blocks another                    | Nothing — the tracker owns it                          | 8                                |
-| Refactor, test, lint, or internal docs       | Neither file                                           | `my-changelog-management` rule 2 |
-| A user-visible change with no initiative     | Changelog only                                         | `my-changelog-management`        |
+| Situation                                    | Edit                                                   | Rule                                  |
+| -------------------------------------------- | ------------------------------------------------------ | ------------------------------------- |
+| User agrees to a new initiative              | Add a row under a horizon; link the spec if one exists | 3                                     |
+| Priority shifts                              | Move the row between horizons                          | 4                                     |
+| Spec written for a queued row                | Add the spec link                                      | 5                                     |
+| The initiative's work landed on main         | Remove the row; suggest cutting a release              | 6                                     |
+| Scope or framing changed                     | Edit the row in place                                  | 7                                     |
+| One initiative splits into separate outcomes | Split into rows                                        | 7                                     |
+| An idea is dropped before work starts        | Delete the row                                         | 7                                     |
+| One ticket blocks another                    | Nothing — the tracker owns it                          | 8                                     |
+| Refactor, test, lint, or internal docs       | Neither file                                           | `my-changelog-management` Scope check |
+| A user-visible change with no initiative     | Changelog only                                         | `my-changelog-management`             |
 
 If a request fits no row, ask the user. A speculative roadmap row is noise.
 
